@@ -15,8 +15,8 @@ import javax.persistence.Id;
 public class Member {
 
     @Id @GeneratedValue
-    private String id;
-    private int age;
+    private Long id;
+    private String username;
 
 
 }
