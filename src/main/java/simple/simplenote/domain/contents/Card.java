@@ -17,12 +17,7 @@ public abstract class Card {
     @Column(name = "card_id")
     private Long id;
 
-    private String username;
 
     @Enumerated(EnumType.STRING)
     private CardStatus cardStatus;
-
-    @OneToOne
-    @JoinColumn(name = "card_list_id")
-    private CardList cardList;
 }

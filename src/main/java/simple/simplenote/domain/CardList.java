@@ -3,6 +3,7 @@ package simple.simplenote.domain;
 
 import lombok.Getter;
 import lombok.Setter;
+import simple.simplenote.domain.contents.Card;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -17,5 +18,9 @@ public class CardList {
     private String title;
     private LocalDateTime localDateTime;
     private String theme;
+
+    @OneToOne
+    @JoinColumn(name = "card_id")
+    private Card card;
 
 }
