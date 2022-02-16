@@ -11,7 +11,7 @@ import javax.persistence.*;
 @Getter @Setter
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "dtype")
-public class Card {
+public abstract class Card {
 
     @Id @GeneratedValue
     @Column(name = "card_id")

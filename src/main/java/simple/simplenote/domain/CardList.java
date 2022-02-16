@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
-public abstract class CardList {
+public class CardList {
 
     @Id @GeneratedValue
     @Column(name = "card_list_id")
