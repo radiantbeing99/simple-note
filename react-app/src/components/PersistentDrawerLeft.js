@@ -19,6 +19,8 @@ import SettingsIcon from "@mui/icons-material/Settings";
 import HomeIcon from "@mui/icons-material/Home";
 import ListAltIcon from "@mui/icons-material/ListAlt";
 import BasicCard from "./BasicCard";
+import Button from "@mui/material/Button";
+import CreateIcon from "@mui/icons-material/Create";
 
 const drawerWidth = 240;
 
@@ -77,69 +79,83 @@ export default function PersistentDrawerLeft() {
     setOpen(false);
   };
 
+  const content = (
+    <div>
+      <BasicCard></BasicCard>
+      <br />
+      <BasicCard></BasicCard>
+      <br />
+      <BasicCard></BasicCard>
+      <br />
+      <BasicCard></BasicCard>
+    </div>
+  );
+
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
-      <AppBar position="fixed" open={open}>
-        <Toolbar>
-          <IconButton
-            color="inherit"
-            aria-label="open drawer"
-            onClick={handleDrawerOpen}
-            edge="start"
-            sx={{ mr: 2, ...(open && { display: "none" }) }}
-          >
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="h6" noWrap component="div">
-            Simple Note
-          </Typography>
-        </Toolbar>
-      </AppBar>
-      <Drawer
-        sx={{
-          width: drawerWidth,
-          flexShrink: 0,
-          "& .MuiDrawer-paper": {
+    <div>
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <AppBar position="fixed" open={open}>
+          <Toolbar>
+            <IconButton
+              color="inherit"
+              aria-label="open drawer"
+              onClick={handleDrawerOpen}
+              edge="start"
+              sx={{ mr: 2, ...(open && { display: "none" }) }}
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="h6" noWrap component="div">
+              Simple Note
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Drawer
+          sx={{
             width: drawerWidth,
-            boxSizing: "border-box",
-          },
-        }}
-        variant="persistent"
-        anchor="left"
-        open={open}
-      >
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          <ListItem button key={"홈"}>
-            <ListItemIcon>{<HomeIcon />}</ListItemIcon>
-            <ListItemText primary={"홈"} />
-          </ListItem>
-          <ListItem button key={"글 목록"}>
-            <ListItemIcon>{<ListAltIcon />}</ListItemIcon>
-            <ListItemText primary={"글 목록"} />
-          </ListItem>
-          <ListItem button key={"설정"}>
-            <ListItemIcon>{<SettingsIcon />}</ListItemIcon>
-            <ListItemText primary={"설정"} />
-          </ListItem>
-        </List>
-      </Drawer>
-      <Main open={open}>
-        <DrawerHeader />
-        <BasicCard></BasicCard>
-        <br />
-        <BasicCard></BasicCard>
-        <br />
-        <BasicCard></BasicCard>
-        <br />
-        <BasicCard></BasicCard>
-      </Main>
-    </Box>
+            flexShrink: 0,
+            "& .MuiDrawer-paper": {
+              width: drawerWidth,
+              boxSizing: "border-box",
+            },
+          }}
+          variant="persistent"
+          anchor="left"
+          open={open}
+        >
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "ltr" ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          {/* Drawer 버튼 */}
+          <List>
+            <ListItem button key={"홈"}>
+              <ListItemIcon>{<HomeIcon />}</ListItemIcon>
+              <ListItemText primary={"홈"} />
+            </ListItem>
+            <ListItem button key={"글 목록"}>
+              <ListItemIcon>{<ListAltIcon />}</ListItemIcon>
+              <ListItemText primary={"글 목록"} />
+            </ListItem>
+            <ListItem button key={"설정"}>
+              <ListItemIcon>{<SettingsIcon />}</ListItemIcon>
+              <ListItemText primary={"설정"} />
+            </ListItem>
+          </List>
+        </Drawer>
+        <Main open={open}>
+          <DrawerHeader />
+          <Button variant="outlined" startIcon={<CreateIcon />}>
+            작성
+          </Button>
+          <br />
+          <br />
+          {content}
+        </Main>
+      </Box>
+    </div>
   );
 }
