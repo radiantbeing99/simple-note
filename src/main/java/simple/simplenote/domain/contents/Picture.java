@@ -11,7 +11,7 @@ import javax.persistence.Entity;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("Picture")
-public class Picture extends CardList {
+public class Picture extends Card {
     private String copyRight;
     private String pictureName;
 }
