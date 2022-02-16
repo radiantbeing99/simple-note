@@ -21,6 +21,8 @@ import ListAltIcon from "@mui/icons-material/ListAlt";
 import BasicCard from "./BasicCard";
 import Button from "@mui/material/Button";
 import CreateIcon from "@mui/icons-material/Create";
+import DeleteIcon from "@mui/icons-material/Delete";
+import ButtonGroup from "@mui/material/ButtonGroup";
 
 const drawerWidth = 240;
 
@@ -148,9 +150,15 @@ export default function PersistentDrawerLeft() {
         </Drawer>
         <Main open={open}>
           <DrawerHeader />
-          <Button variant="outlined" startIcon={<CreateIcon />}>
-            작성
-          </Button>
+          <ButtonGroup>
+            <Button variant="outlined" startIcon={<CreateIcon />}>
+              작성
+            </Button>
+            <Button variant="outlined" startIcon={<DeleteIcon />}>
+              삭제
+            </Button>
+          </ButtonGroup>
+
           <br />
           <br />
           {content}
