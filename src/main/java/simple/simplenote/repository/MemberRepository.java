@@ -1,6 +1,7 @@
-package simple.simplenote.domain;
+package simple.simplenote.repository;
 
 import org.springframework.stereotype.Repository;
+import simple.simplenote.domain.Member;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
