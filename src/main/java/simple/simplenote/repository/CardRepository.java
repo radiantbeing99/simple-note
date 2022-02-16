@@ -25,7 +25,7 @@ public class CardRepository {
     }
 
     public List<Card> findById(Long id){
-        return em.createQuery("select c from Card as c where c.id: id", Card.class)
+        return em.createQuery("select c from Card as c where c.id= :id", Card.class)
                 .setParameter("id", id)
                 .getResultList();
     }
