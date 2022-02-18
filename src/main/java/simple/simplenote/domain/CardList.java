@@ -17,7 +17,6 @@ public class CardList {
     private Long id;
     private String title;
     private LocalDateTime localDateTime;
-    private String theme;
 
     @OneToOne
     @JoinColumn(name = "card_id")
