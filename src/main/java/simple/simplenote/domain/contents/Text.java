@@ -10,6 +10,9 @@ import javax.persistence.Entity;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("Text")
+
 public class Text extends Card {
+
+
     private String contents;
 }

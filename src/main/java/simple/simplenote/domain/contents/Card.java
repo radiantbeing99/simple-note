@@ -13,6 +13,7 @@ import java.time.LocalDateTime;
 @DiscriminatorColumn(name = "dtype")
 public abstract class Card {
 
+
     @Id @GeneratedValue
     @Column(name = "card_id")
     private Long id;
