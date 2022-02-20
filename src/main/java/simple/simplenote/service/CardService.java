@@ -4,10 +4,8 @@ package simple.simplenote.service;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import simple.simplenote.domain.CardList;
 import simple.simplenote.domain.contents.Card;
 import simple.simplenote.repository.CardRepository;
-import simple.simplenote.repository.ListRepository;
 
 import java.util.List;
 
@@ -20,16 +18,16 @@ public class CardService {
 
 
     @Transactional(readOnly = false)
-    public Long add(Card card){
-        validateDuplicatedId(card);
+    public String add(Card card){
+        validateDuplicatedTitle(card);
         cardRepository.save(card);
-        return card.getId();
+        return card.getTitle();
     }
 
-    private void validateDuplicatedId(Card card) {
-        List<Card> idResult = cardRepository.findById(card.getId());
-        if (!idResult.isEmpty()){
-            throw new IllegalStateException("duplicated ID number");
+    private void validateDuplicatedTitle(Card card) {
+        List<Card> result = cardRepository.findById(card.getId());
+        if (!result.isEmpty()){
+            throw new IllegalStateException("duplicated Title!");
         }
 
     }

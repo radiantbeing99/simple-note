@@ -8,13 +8,12 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.transaction.annotation.Transactional;
-import simple.simplenote.domain.CardList;
 import simple.simplenote.domain.contents.Card;
 import simple.simplenote.domain.contents.CardStatus;
 import simple.simplenote.domain.contents.Text;
 import simple.simplenote.repository.CardRepository;
 
-import static org.junit.Assert.*;
+import java.util.List;
 
 
 @RunWith(SpringRunner.class)
@@ -34,13 +33,15 @@ public class CardServiceTest {
         //given
         Card card = new Text();
         card.setCardStatus(CardStatus.COMPLETE);
+        card.setTitle("하하!");
+        cardService.add(card);
 
         //when
-        cardRepository.save(card);
-        Card card1 = cardRepository.findById(1L).get(0);
+        List<Card> findResult = cardRepository.findById(card.getId());
 
+        System.out.println("card = " + card.getTitle());
         //then
-        Assertions.assertThat(card.getCardStatus()).isEqualTo(card1.getCardStatus());
+        Assertions.assertThat(card.getTitle()).isEqualTo(findResult.get(0).getTitle());
     }
 
 }

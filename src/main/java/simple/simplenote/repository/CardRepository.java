@@ -3,7 +3,6 @@ package simple.simplenote.repository;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
-import simple.simplenote.domain.CardList;
 import simple.simplenote.domain.contents.Card;
 
 import javax.persistence.EntityManager;

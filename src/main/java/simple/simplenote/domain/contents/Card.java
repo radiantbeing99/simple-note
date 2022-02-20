@@ -3,9 +3,9 @@ package simple.simplenote.domain.contents;
 
 import lombok.Getter;
 import lombok.Setter;
-import simple.simplenote.domain.CardList;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter @Setter
@@ -17,7 +17,10 @@ public abstract class Card {
     @Column(name = "card_id")
     private Long id;
 
+    private String title;
 
     @Enumerated(EnumType.STRING)
     private CardStatus cardStatus;
+
+    private LocalDateTime lastModifiedTime;
 }
