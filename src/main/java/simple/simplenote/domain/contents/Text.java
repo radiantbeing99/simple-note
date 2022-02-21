@@ -4,6 +4,7 @@ package simple.simplenote.domain.contents;
 import lombok.Getter;
 import lombok.Setter;
 
+import javax.persistence.Column;
 import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 
@@ -13,6 +14,6 @@ import javax.persistence.Entity;
 
 public class Text extends Card {
 
-
-    private String contents;
+    @Column(length = 10000)
+    private String description;
 }
