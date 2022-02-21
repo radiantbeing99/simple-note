@@ -1,0 +1,16 @@
+.form-title {
+  width: 30vw;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.form-description {
+  width: 30vw;
+  height: 15vh;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.hidden {
+  display: none;
+}
