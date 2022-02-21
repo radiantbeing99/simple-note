@@ -13,8 +13,8 @@ function handleClickAnchor(event, contentID) {
 }
 
 export function paintTOC() {
-  useAPI("content/toc", (contents) => {
-    console.log(contents);
+  useAPI("content/toc", (data) => {
+    const contents = data.contentsTOC;
     contents.forEach((content) => {
       const li = document.createElement("li");
       const a = document.createElement("a");
