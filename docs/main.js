@@ -1,23 +1,16 @@
-// FIXME: async fetch API 때문에 글 목록 순서가 뒤바뀜을 확인.
+// FIXME:
 
+import { paintContentTitle, paintContentDescription } from "./modules/contentFunctions.js";
 import { paintTOC } from "./modules/paintTOC.js";
 import { createContent } from "./modules/createContent.js";
+import { updateContent } from "./modules/updateContent.js";
 
-const _tableOfContents = document.querySelector(".table-of-contents");
-const _contentTitle = document.querySelector(".content-title");
-const _contentDescription = document.querySelector(".content-description");
+const _updateButton = document.querySelector(".update-button");
 
-let currentContent = {
-  id: 0,
-  title: "Welcome Title",
-  description: "Welcome Description",
-};
+_updateButton.classList.add("hidden");
 
 createContent();
+updateContent();
 paintTOC();
-
-// content title
-_contentTitle.innerText = currentContent.title;
-
-// content description
-_contentDescription.innerText = currentContent.description;
+paintContentTitle();
+paintContentDescription();
