@@ -13,17 +13,16 @@ function handleClickAnchor(event, contentID) {
 }
 
 export function paintTOC() {
-  useAPI("content/max_contents", (MAX_CONTENTS_NUM) => {
-    for (let i = 0; i < MAX_CONTENTS_NUM; i++) {
-      useAPI(`content/${i + 1}`, (content) => {
-        const li = document.createElement("li");
-        const a = document.createElement("a");
-        a.innerText = content.title;
-        a.href = content.id;
-        a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
-        li.appendChild(a);
-        _tableOfContents.appendChild(li);
-      });
-    }
+  useAPI("content/toc", (contents) => {
+    console.log(contents);
+    contents.forEach((content) => {
+      const li = document.createElement("li");
+      const a = document.createElement("a");
+      a.innerText = content.title;
+      a.href = content.id;
+      a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
+      li.appendChild(a);
+      _tableOfContents.appendChild(li);
+    });
   });
 }

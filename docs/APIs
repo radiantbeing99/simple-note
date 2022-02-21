@@ -1,0 +1,4 @@
+/api/content/{id}
+/api/content/max_contents
+/api/content/toc
+/api/content/create
