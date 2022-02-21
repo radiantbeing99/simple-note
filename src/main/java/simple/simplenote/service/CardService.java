@@ -24,6 +24,15 @@ public class CardService {
         return card.getTitle();
     }
 
+    public List<Card> findById(Long id){
+        return cardRepository.findById(id);
+    }
+
+    public List<Card> findAll(){
+        return cardRepository.findAll();
+    }
+
+
     private void validateDuplicatedTitle(Card card) {
         List<Card> result = cardRepository.findById(card.getId());
         if (!result.isEmpty()){
