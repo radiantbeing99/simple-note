@@ -59,7 +59,7 @@ function handleButtonOpen(content) {
   _descriptionTextarea.setAttribute("name", "description");
   _descriptionTextarea.innerText = content.description;
   // submit 설정
-  _submit.classList.add("update-submit", "btn", "btn-primary");
+  _submit.classList.add("update-submit", "btn", "btn-primary", "mb-3");
   _submit.setAttribute("type", "submit");
   _submit.setAttribute("value", "submit");
 

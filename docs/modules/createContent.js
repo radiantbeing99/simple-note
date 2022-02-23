@@ -62,7 +62,7 @@ function handleButtonOpen(MAX_CONTENTS_NUM) {
   _descriptionTextarea.setAttribute("name", "description");
   _descriptionTextarea.setAttribute("rows", "10");
   // submit 설정
-  _submit.classList.add("create-submit", "btn", "btn-primary");
+  _submit.classList.add("create-submit", "btn", "btn-primary", "mb-3");
   _submit.setAttribute("type", "submit");
   _submit.setAttribute("value", "submit");
 
