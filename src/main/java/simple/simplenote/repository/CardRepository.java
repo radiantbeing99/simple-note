@@ -14,19 +14,27 @@ public class CardRepository {
 
     private final EntityManager em;
 
-    public void save(Card card){
+    public void save(Card card) {
         em.persist(card);
     }
 
-    public List<Card> findAll(){
+    public List<Card> findAll() {
         return em.createQuery("select c from Card as c", Card.class)
                 .getResultList();
     }
 
-    public List<Card> findById(Long id){
-        return em.createQuery("select c from Card as c where c.id= :id", Card.class)
-                .setParameter("id", id)
-                .getResultList();
+    public Card findById(Long id) {
+        Card card = null;
+        try {
+            card = em.createQuery("select c from Card as c where c.id= :id", Card.class)
+                    .setParameter("id", id)
+                    .getSingleResult();
+        } catch (Exception e) {
+            System.out.println("None Exist Id");
+        }
+        finally {
+            return card;
+        }
     }
 
 }
