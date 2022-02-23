@@ -1,17 +1,20 @@
 import { getAPI } from "./controlBackEndAPI.js";
-import { setCurrentContent, paintContentTitle, paintContentDescription } from "./contentFunctions.js";
+import { setCurrentContent, paintContent } from "./contentFunctions.js";
+import { closeUpdateForm } from "./updateContent.js";
 
 const _tableOfContents = document.querySelector(".table-of-contents");
 const _updateButton = document.querySelector(".update-button");
+const _deleteButton = document.querySelector(".delete-button");
 
 function handleClickAnchor(event, contentID) {
   event.preventDefault();
   _updateButton.classList.remove("hidden");
+  _deleteButton.classList.remove("hidden");
 
   getAPI(`contents/${contentID}`, (content) => {
-    setCurrentContent(content.id, content.title, content.description);
-    paintContentTitle();
-    paintContentDescription();
+    setCurrentContent(content);
+    paintContent();
+    closeUpdateForm();
   });
 }
 

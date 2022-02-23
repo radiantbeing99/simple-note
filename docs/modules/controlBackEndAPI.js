@@ -46,3 +46,17 @@ export function patchAPI(route, body, func) {
     })
     .catch((error) => console.error("Error:", error));
 }
+
+export function deleteAPI(route, func) {
+  fetch(`${backEndAddress}/api/${route}`, {
+    method: "DELETE",
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      if (data.status !== "Good Received") {
+        console.log("Error!");
+      }
+      func(data);
+    })
+    .catch((error) => console.error("Error:", error));
+}

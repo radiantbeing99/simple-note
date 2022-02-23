@@ -27,3 +27,7 @@
 .hidden {
   display: none;
 }
+
+.container {
+  background-color: powderblue;
+}

@@ -69,8 +69,9 @@ function handleSubmit(event) {
   const title = document.querySelector(".create-title");
   const description = document.querySelector(".create-description");
   const createdContent = { id: id.value, title: title.value, description: description.value };
+  console.log(createdContent);
   postAPI("contents", createdContent, paintTOC);
-  setCurrentContent(createdContent.id, createdContent.title, createdContent.description);
+  setCurrentContent(createdContent);
   paintContent();
   handleButtonClose();
 }
