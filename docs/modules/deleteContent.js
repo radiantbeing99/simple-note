@@ -3,7 +3,7 @@ import { deleteAPI } from "./controlBackEndAPI.js";
 import { paintTOC } from "./paintTOC.js";
 
 function handleClickDelete() {
-  // deleteAPI
+  const currentContent = getCurrentContent();
   deleteAPI(`contents/${currentContent.id}`, (data) => {
     paintTOC();
     setDefaultContent();
@@ -13,6 +13,5 @@ function handleClickDelete() {
 
 export function deleteContent() {
   const _deleteButton = document.querySelector(".delete-button");
-  const currentContent = getCurrentContent();
   _deleteButton.addEventListener("click", handleClickDelete);
 }
