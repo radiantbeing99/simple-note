@@ -14,7 +14,7 @@ import java.time.LocalDateTime;
 public abstract class Card {
 
 
-    @Id @GeneratedValue
+    @Id @GeneratedValue()
     @Column(name = "card_id")
     private Long id;
 

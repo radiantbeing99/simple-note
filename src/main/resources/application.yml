@@ -7,7 +7,9 @@ spring:
 
   jpa:
     properties:
+      defer-datasource-initialization: true
       hibernate:
+
 #        show_sql: true
         format_sql: true
 
