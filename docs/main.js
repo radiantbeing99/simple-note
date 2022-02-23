@@ -8,8 +8,8 @@ import { deleteContent } from "./modules/deleteContent.js";
 
 const _updateButton = document.querySelector(".update-button");
 const _deleteButton = document.querySelector(".delete-button");
-_updateButton.classList.add("hidden");
-_deleteButton.classList.add("hidden");
+_updateButton.setAttribute("disabled", "");
+_deleteButton.setAttribute("disabled", "");
 
 createContent();
 updateContent();

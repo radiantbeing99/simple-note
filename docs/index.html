@@ -16,10 +16,12 @@
   <body>
     <div class="container">
       <h1 class="display-3">Simple Note</h1>
-      <ul class="table-of-contents"></ul>
-      <button class="create-button">Create</button>
-      <button class="update-button">Update</button>
-      <button class="delete-button">Delete</button>
+      <div class="table-of-contents list-group mb-3"></div>
+      <div class="btn-group mb-3" role="group" aria-label="Basic example">
+        <button type="button" class="create-button btn btn-primary">Create</button>
+        <button type="button" class="update-button btn btn-primary">Update</button>
+      </div>
+      <button type="button" class="delete-button btn btn-danger mb-3">Delete</button>
       <div class="content-form"></div>
       <h2 class="content-title"></h2>
       <div class="content-description"></div>
