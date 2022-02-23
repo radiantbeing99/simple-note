@@ -1,10 +1,23 @@
-.form-title {
+.create-title {
   width: 30vw;
   margin-top: 5px;
   margin-bottom: 5px;
 }
 
-.form-description {
+.create-description {
+  width: 30vw;
+  height: 15vh;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.update-title {
+  width: 30vw;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.update-description {
   width: 30vw;
   height: 15vh;
   margin-top: 5px;

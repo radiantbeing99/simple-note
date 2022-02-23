@@ -14,3 +14,10 @@ updateContent();
 paintTOC();
 paintContentTitle();
 paintContentDescription();
+
+/*
+const btn = document.createElement("button");
+btn.innerText = "paintToc";
+btn.addEventListener("click", paintTOC);
+document.body.appendChild(btn);
+*/
