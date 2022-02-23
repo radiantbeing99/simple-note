@@ -24,8 +24,16 @@ public class CardService {
         return card.getTitle();
     }
 
-    public List<Card> findById(Long id){
+    public Card findById(Long id){
         return cardRepository.findById(id);
+    }
+
+    public Card findByIdForUpdate(Long id){
+        return cardRepository.findById(id);
+    }
+
+    public void updateCard(Card card){
+        cardRepository.save(card);
     }
 
     public List<Card> findAll(){
@@ -34,8 +42,8 @@ public class CardService {
 
 
     private void validateDuplicatedTitle(Card card) {
-        List<Card> result = cardRepository.findById(card.getId());
-        if (!result.isEmpty()){
+        Card findCard = cardRepository.findById(card.getId());
+        if (findCard != null){
             throw new IllegalStateException("duplicated id!");
         }
 
