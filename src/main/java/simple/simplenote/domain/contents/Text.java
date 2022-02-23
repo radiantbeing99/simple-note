@@ -11,9 +11,15 @@ import javax.persistence.Entity;
 @Entity
 @Getter @Setter
 @DiscriminatorValue("Text")
-
 public class Text extends Card {
 
     @Column(length = 10000)
     private String description;
+
+    @Override
+    public String toString() {
+        return "Text{" +
+                "description='" + description + '\'' +
+                '}';
+    }
 }

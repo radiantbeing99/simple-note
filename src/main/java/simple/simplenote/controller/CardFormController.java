@@ -3,6 +3,7 @@ package simple.simplenote.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -36,7 +37,9 @@ public class CardFormController extends HttpServlet {
     @ResponseBody
     public String showCard(@PathVariable Long id) throws JsonProcessingException {
         Card findCard = cardService.findById(id);
+        objectMapper.registerModule(new JavaTimeModule());
         String findResult = objectMapper.writeValueAsString(findCard);
+
         return findResult;
     }
 
@@ -44,6 +47,9 @@ public class CardFormController extends HttpServlet {
     @GetMapping("/max_contents")
     public String showMaxContent() {
         List<Card> cardList = cardService.findAll();
+        if (cardList.size() == 0){
+            return 1+"";
+        }
 
         Card max = Collections.max(cardList, new Comparator<Card>() {
             @Override
@@ -103,6 +109,7 @@ public class CardFormController extends HttpServlet {
         text.setLastModifiedTime(LocalDateTime.now());
 
         cardService.add(text);
+        System.out.println("text = " + text);
 
         return objectMapper.writeValueAsString(new StatusForm("Good Received"));
     }
