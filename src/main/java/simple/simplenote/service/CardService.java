@@ -48,4 +48,9 @@ public class CardService {
         }
 
     }
+
+    @Transactional(readOnly = false)
+    public void removeCard(Card findCard) {
+        cardRepository.deleteCard(findCard);
+    }
 }

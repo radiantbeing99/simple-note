@@ -3,9 +3,9 @@ package simple.simplenote.controller;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +15,9 @@ import simple.simplenote.service.CardService;
 
 import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 @Controller
@@ -22,7 +25,8 @@ import java.util.List;
 @RequiredArgsConstructor
 @Transactional(readOnly = true)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
-public class AddFormController extends HttpServlet {
+@Slf4j
+public class CardFormController extends HttpServlet {
 
     private final CardService cardService;
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -32,8 +36,9 @@ public class AddFormController extends HttpServlet {
     @GetMapping("/{id}")
     @ResponseBody
     public String showCard(@PathVariable Long id) throws JsonProcessingException {
-        List<Card> result = cardService.findById(id);
-        String findResult = objectMapper.writeValueAsString(result.get(0));
+        Card findCard = cardService.findById(id);
+        objectMapper.registerModule(new JavaTimeModule());
+        String findResult = objectMapper.writeValueAsString(findCard);
 
         return findResult;
     }
@@ -41,9 +46,19 @@ public class AddFormController extends HttpServlet {
     @ResponseBody
     @GetMapping("/max_contents")
     public String showMaxContent() {
-        int maxSize = cardService.findAll().size();
+        List<Card> cardList = cardService.findAll();
+        if (cardList.size() == 0){
+            return 1+"";
+        }
 
-        return maxSize + "";
+        Card max = Collections.max(cardList, new Comparator<Card>() {
+            @Override
+            public int compare(Card o1, Card o2) {
+                return o1.getId() > o2.getId() ? 1 : -1;
+            }
+        });
+
+        return max.getId() + "";
     }
 
     /**
@@ -91,25 +106,42 @@ public class AddFormController extends HttpServlet {
         text.setId(Long.valueOf(addForm.getId()));
         text.setTitle(addForm.getTitle());
         text.setDescription(addForm.getDescription());
+        text.setLastModifiedTime(LocalDateTime.now());
 
         cardService.add(text);
+        System.out.println("text = " + text);
 
         return objectMapper.writeValueAsString(new StatusForm("Good Received"));
     }
 
 
+    @PatchMapping("/{id}")
+    @ResponseBody
+    @Transactional(readOnly = false)
+    public String updateDescription(@PathVariable int id,
+            @RequestBody UpdateForm updateForm) throws JsonProcessingException {
+        Text text = (Text)cardService.findByIdForUpdate((long) id);
 
-//    @Transactional(readOnly = false)
-//    @PostMapping("/create")
-//    public void getCard(@ModelAttribute AddForm addForm) throws JsonProcessingException {
-//        System.out.println("AddFormController.getCard");
-//        Text text = new Text();
-//        text.setTitle(addForm.getTitle());
-//        text.setDescription(addForm.getDescription());
-//
-//        System.out.println("text.getTitle() = " + text.getTitle());
-//        System.out.println("text.getDescription() = " + text.getDescription());
-//        cardService.add(text);
-//    }
+        System.out.println("text = " + text.getId());
+        text.setTitle(updateForm.getTitle());
+        text.setDescription(updateForm.getDescription());
+        text.setLastModifiedTime(LocalDateTime.now());
+
+        log.info("text.getTitle() = " + text.getTitle());
+        cardService.updateCard(text);
+
+        return objectMapper.writeValueAsString(new StatusForm("Good Received"));
+    }
+
+
+    @DeleteMapping("{id}")
+    @Transactional(readOnly = false)
+    @ResponseBody
+    public String deleteCard(@PathVariable int id) throws JsonProcessingException {
+        Card findCard = cardService.findByIdForUpdate((long) id);
+        cardService.removeCard(findCard);
+
+        return objectMapper.writeValueAsString(new StatusForm("Good Received"));
+    }
 
 }
