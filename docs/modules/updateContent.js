@@ -1,9 +1,6 @@
-// TODO: form 제출 시 id도 함께 제출하도록 변경, toc를 통해 글 옮길 시 update-form의 id, 제목, 내용도 변경
-
-import { useAPI } from "./controlBackEndAPI.js";
-import { backEndAddress } from "./global.js";
+import { getAPI, patchAPI } from "./controlBackEndAPI.js";
 import { paintTOC } from "./paintTOC.js";
-import { getCurrentContent } from "./contentFunctions.js";
+import { getCurrentContent, paintContent, setCurrentContent } from "./contentFunctions.js";
 
 const _updateButton = document.querySelector(".update-button");
 const _contentForm = document.querySelector(".content-form");
@@ -24,30 +21,29 @@ function handleButtonOpen(content) {
 
   // form attribute 설정
   form.classList.add("update-form");
-  form.setAttribute("action", `${backEndAddress}/api/content/update`);
-  form.setAttribute("method", "post");
-  form.addEventListener("submit", () => paintTOC());
+  form.addEventListener("submit", handleSubmit);
   // header attribute 설정
   header.innerText = "Update-Form";
   // hidden attribute 설정
+  hidden.classList.add("update-id");
   hidden.setAttribute("type", "hidden");
   hidden.setAttribute("name", "id");
   hidden.setAttribute("value", content.id);
   // input attribute 설정
-  input.classList.add("form-title");
+  input.classList.add("update-title");
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Title");
   input.setAttribute("required", "");
   input.setAttribute("name", "title");
   input.setAttribute("value", content.title);
   // textarea attribute 설정
-  textarea.classList.add("form-description");
+  textarea.classList.add("update-description");
   textarea.setAttribute("placeholder", "Description");
   textarea.setAttribute("required", "");
   textarea.setAttribute("name", "description");
   textarea.innerText = content.description;
   // submit attribute 설정
-  submit.classList.add("form-submit");
+  submit.classList.add("update-submit");
   submit.setAttribute("type", "submit");
   submit.setAttribute("value", "submit");
 
@@ -67,12 +63,24 @@ function handleButtonClose() {
   form.remove();
 }
 
+function handleSubmit(event) {
+  event.preventDefault();
+  const id = document.querySelector(".update-id");
+  const title = document.querySelector(".update-title");
+  const description = document.querySelector(".update-description");
+  const updatedContent = { id: id.value, title: title.value, description: description.value };
+  console.log(updatedContent, `contents/${updatedContent.id}`);
+  patchAPI(`contents/${updatedContent.id}`, updatedContent, paintTOC);
+  setCurrentContent(updatedContent.id, updatedContent.title, updatedContent.description);
+  paintContent();
+}
+
 export function updateContent() {
   _updateButton.addEventListener("click", () => {
     if (state.formOpen) {
       handleButtonClose();
     } else {
-      useAPI(`content/${getCurrentContent().id}`, (content) => {
+      getAPI(`contents/${getCurrentContent().id}`, (content) => {
         handleButtonOpen(content);
       });
     }

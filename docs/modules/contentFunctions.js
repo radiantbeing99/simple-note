@@ -2,8 +2,8 @@ const _contentTitle = document.querySelector(".content-title");
 const _contentDescription = document.querySelector(".content-description");
 const currentContent = {
   id: 0,
-  title: "Welcome Title",
-  description: "Welcome Description",
+  title: "Welcome to Simple Note",
+  description: "A special note just for you.",
 };
 
 export function setCurrentContent(id, title, description) {
@@ -22,4 +22,9 @@ export function paintContentTitle() {
 
 export function paintContentDescription() {
   _contentDescription.innerText = currentContent.description;
+}
+
+export function paintContent() {
+  paintContentTitle();
+  paintContentDescription();
 }
