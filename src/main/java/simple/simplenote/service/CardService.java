@@ -36,7 +36,7 @@ public class CardService {
     private void validateDuplicatedTitle(Card card) {
         List<Card> result = cardRepository.findById(card.getId());
         if (!result.isEmpty()){
-            throw new IllegalStateException("duplicated Title!");
+            throw new IllegalStateException("duplicated id!");
         }
 
     }
