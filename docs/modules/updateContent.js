@@ -17,36 +17,42 @@ function handleButtonOpen(content) {
 
   const form = document.createElement("form");
   const header = document.createElement("h3");
+  const hidden = document.createElement("input");
   const input = document.createElement("input");
   const textarea = document.createElement("textarea");
   const submit = document.createElement("input");
 
-  // form props 설정
+  // form attribute 설정
   form.classList.add("update-form");
   form.setAttribute("action", `${backEndAddress}/api/content/update`);
   form.setAttribute("method", "post");
   form.addEventListener("submit", () => paintTOC());
-  // header props 설정
+  // header attribute 설정
   header.innerText = "Update-Form";
-  // input props 설정
+  // hidden attribute 설정
+  hidden.setAttribute("type", "hidden");
+  hidden.setAttribute("name", "id");
+  hidden.setAttribute("value", content.id);
+  // input attribute 설정
   input.classList.add("form-title");
   input.setAttribute("type", "text");
   input.setAttribute("placeholder", "Title");
   input.setAttribute("required", "");
   input.setAttribute("name", "title");
   input.setAttribute("value", content.title);
-  // textarea props 설정
+  // textarea attribute 설정
   textarea.classList.add("form-description");
   textarea.setAttribute("placeholder", "Description");
   textarea.setAttribute("required", "");
   textarea.setAttribute("name", "description");
   textarea.innerText = content.description;
-  // submit props 설정
+  // submit attribute 설정
   submit.classList.add("form-submit");
   submit.setAttribute("type", "submit");
   submit.setAttribute("value", "submit");
 
   form.appendChild(header);
+  form.appendChild(hidden);
   form.appendChild(input);
   form.appendChild(document.createElement("br"));
   form.appendChild(textarea);

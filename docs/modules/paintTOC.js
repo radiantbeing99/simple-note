@@ -7,6 +7,7 @@ const _updateButton = document.querySelector(".update-button");
 function handleClickAnchor(event, contentID) {
   event.preventDefault();
   _updateButton.classList.remove("hidden");
+
   useAPI(`content/${contentID}`, (content) => {
     setCurrentContent(content.id, content.title, content.description);
     paintContentTitle();
@@ -15,7 +16,7 @@ function handleClickAnchor(event, contentID) {
 }
 
 export function paintTOC() {
-  useAPI("content/toc", (data) => {
+  const paint = useAPI("content/toc", (data) => {
     const contents = data.contentsTOC;
     contents.forEach((content) => {
       const li = document.createElement("li");
@@ -27,4 +28,10 @@ export function paintTOC() {
       _tableOfContents.appendChild(li);
     });
   });
+  if (_tableOfContents.innerHTML === "") {
+    paint;
+  } else {
+    _tableOfContents.innerHTML = "";
+    paint;
+  }
 }
