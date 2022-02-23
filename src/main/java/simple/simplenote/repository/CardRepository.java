@@ -37,4 +37,7 @@ public class CardRepository {
         }
     }
 
+    public void deleteCard(Card findCard) {
+        em.remove(findCard);
+    }
 }
