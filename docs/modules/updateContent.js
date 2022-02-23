@@ -69,10 +69,18 @@ function handleSubmit(event) {
   const title = document.querySelector(".update-title");
   const description = document.querySelector(".update-description");
   const updatedContent = { id: id.value, title: title.value, description: description.value };
-  console.log(updatedContent, `contents/${updatedContent.id}`);
   patchAPI(`contents/${updatedContent.id}`, updatedContent, paintTOC);
-  setCurrentContent(updatedContent.id, updatedContent.title, updatedContent.description);
+  setCurrentContent(updatedContent);
   paintContent();
+  handleButtonClose();
+}
+
+export function closeUpdateForm() {
+  state.formOpen = false;
+  const form = document.querySelector(".update-form");
+  if (form !== null) {
+    form.remove();
+  }
 }
 
 export function updateContent() {
