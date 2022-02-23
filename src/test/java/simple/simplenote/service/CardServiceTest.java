@@ -37,11 +37,11 @@ public class CardServiceTest {
         cardService.add(card);
 
         //when
-        List<Card> findResult = cardRepository.findById(card.getId());
+        Card findCard = cardRepository.findById(card.getId());
 
         System.out.println("card = " + card.getTitle());
         //then
-        Assertions.assertThat(card.getTitle()).isEqualTo(findResult.get(0).getTitle());
+        Assertions.assertThat(card.getTitle()).isEqualTo(findCard.getTitle());
     }
 
 }
