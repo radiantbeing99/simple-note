@@ -1,6 +1,8 @@
+// FIXME: Create Submit 이후 active 안되는 문제
+
 import { paintContent, setCurrentContent } from "./contentFunctions.js";
 import { getAPI, postAPI } from "./controlBackEndAPI.js";
-import { paintTOC } from "./paintTOC.js";
+import { activeButton, paintTOC } from "./paintTOC.js";
 
 const _createButton = document.querySelector(".create-button");
 const _contentForm = document.querySelector(".content-form");
@@ -14,47 +16,66 @@ function handleButtonOpen(MAX_CONTENTS_NUM) {
 
   const NEW_ID = MAX_CONTENTS_NUM + 1;
 
-  const form = document.createElement("form");
-  const header = document.createElement("h3");
-  const hidden = document.createElement("input");
-  const input = document.createElement("input");
-  const textarea = document.createElement("textarea");
-  const submit = document.createElement("input");
+  const _form = document.createElement("form");
+  const _titleDiv = document.createElement("div");
+  const _titleLabel = document.createElement("label");
+  const _titleInput = document.createElement("input");
+  const _descriptionDiv = document.createElement("div");
+  const _descriptionLabel = document.createElement("label");
+  const _header = document.createElement("h3");
+  const _hidden = document.createElement("input");
+  const _descriptionTextarea = document.createElement("textarea");
+  const _submit = document.createElement("input");
 
-  // form props 설정
-  form.classList.add("create-form");
-  form.addEventListener("submit", handleSubmit);
-  // header props 설정
-  header.innerText = "Create-Form";
-  // hidden props 설정
-  hidden.classList.add("create-id");
-  hidden.setAttribute("type", "hidden");
-  hidden.setAttribute("name", "id");
-  hidden.setAttribute("value", String(NEW_ID));
-  // input props 설정
-  input.classList.add("create-title");
-  input.setAttribute("type", "text");
-  input.setAttribute("placeholder", "Title");
-  input.setAttribute("required", "");
-  input.setAttribute("name", "title");
-  // textarea props 설정
-  textarea.classList.add("create-description");
-  textarea.setAttribute("placeholder", "Description");
-  textarea.setAttribute("required", "");
-  textarea.setAttribute("name", "description");
-  // submit props 설정
-  submit.classList.add("create-submit");
-  submit.setAttribute("type", "submit");
-  submit.setAttribute("value", "submit");
+  // form 설정
+  _form.classList.add("create-form");
+  _form.addEventListener("submit", handleSubmit);
+  // header 설정
+  _header.innerText = "Create-Form";
+  // hidden 설정
+  _hidden.classList.add("create-id");
+  _hidden.setAttribute("type", "hidden");
+  _hidden.setAttribute("name", "id");
+  _hidden.setAttribute("value", String(NEW_ID));
+  // titleDiv 설정
+  _titleDiv.classList.add("mb-3");
+  // titleLabel 설정
+  _titleLabel.setAttribute("for", "create-inputContentTitle");
+  _titleLabel.classList.add("form-label");
+  _titleLabel.innerText = "Title";
+  // titleInput 설정
+  _titleInput.classList.add("create-title", "form-control");
+  _titleInput.id = "create-inputContentTitle";
+  _titleInput.setAttribute("type", "text");
+  _titleInput.setAttribute("required", "");
+  _titleInput.setAttribute("name", "title");
+  // descriptionDiv 설정
+  _descriptionDiv.classList.add("mb-3");
+  // descriptionLabel 설정
+  _descriptionLabel.setAttribute("for", "create-inputDescription");
+  _descriptionLabel.classList.add("form-label");
+  _descriptionLabel.innerText = "Description";
+  // descriptionTextarea 설정
+  _descriptionTextarea.classList.add("create-description", "form-control");
+  _descriptionTextarea.id = "create-inputDescription";
+  _descriptionTextarea.setAttribute("required", "");
+  _descriptionTextarea.setAttribute("name", "description");
+  _descriptionTextarea.setAttribute("rows", "10");
+  // submit 설정
+  _submit.classList.add("create-submit", "btn", "btn-primary", "mb-3");
+  _submit.setAttribute("type", "submit");
+  _submit.setAttribute("value", "submit");
 
-  form.appendChild(header);
-  form.appendChild(hidden);
-  form.appendChild(input);
-  form.appendChild(document.createElement("br"));
-  form.appendChild(textarea);
-  form.appendChild(document.createElement("br"));
-  form.appendChild(submit);
-  _contentForm.appendChild(form);
+  _titleDiv.appendChild(_titleLabel);
+  _titleDiv.appendChild(_titleInput);
+  _form.appendChild(_header);
+  _form.appendChild(_titleDiv);
+  _form.appendChild(_hidden);
+  _descriptionDiv.appendChild(_descriptionLabel);
+  _descriptionDiv.appendChild(_descriptionTextarea);
+  _form.appendChild(_descriptionDiv);
+  _form.appendChild(_submit);
+  _contentForm.appendChild(_form);
 }
 
 function handleButtonClose() {
@@ -69,11 +90,11 @@ function handleSubmit(event) {
   const title = document.querySelector(".create-title");
   const description = document.querySelector(".create-description");
   const createdContent = { id: id.value, title: title.value, description: description.value };
-  console.log(createdContent);
   postAPI("contents", createdContent, paintTOC);
   setCurrentContent(createdContent);
   paintContent();
   handleButtonClose();
+  // active 코드
 }
 
 export function createContent() {
