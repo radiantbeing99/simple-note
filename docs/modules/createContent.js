@@ -1,8 +1,8 @@
-// FIXME: Create Submit 이후 active 안되는 문제
+// FIXME: Create Submit 이후 active 안되는 문제, CSS 폼 쓸데없는거 삭제
 
 import { paintContent, setCurrentContent } from "./contentFunctions.js";
 import { getAPI, postAPI } from "./controlBackEndAPI.js";
-import { activeButton, paintTOC } from "./paintTOC.js";
+import { paintTOC } from "./paintTOC.js";
 
 const _createButton = document.querySelector(".create-button");
 const _contentForm = document.querySelector(".content-form");
@@ -64,7 +64,7 @@ function handleButtonOpen(MAX_CONTENTS_NUM) {
   // submit 설정
   _submit.classList.add("create-submit", "btn", "btn-primary", "mb-3");
   _submit.setAttribute("type", "submit");
-  _submit.setAttribute("value", "submit");
+  _submit.setAttribute("value", "Submit");
 
   _titleDiv.appendChild(_titleLabel);
   _titleDiv.appendChild(_titleInput);
