@@ -9,13 +9,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+import simple.simplenote.controller.Form.AddForm;
+import simple.simplenote.controller.Form.StatusForm;
+import simple.simplenote.controller.Form.UpdateForm;
 import simple.simplenote.domain.contents.Card;
 import simple.simplenote.domain.contents.Text;
 import simple.simplenote.service.CardService;
 
 import javax.servlet.http.HttpServlet;
 import java.time.LocalDateTime;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -26,7 +28,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @Slf4j
-public class CardFormController extends HttpServlet {
+public class CardController extends HttpServlet {
 
     private final CardService cardService;
     private ObjectMapper objectMapper = new ObjectMapper();
@@ -74,7 +76,7 @@ public class CardFormController extends HttpServlet {
     public String showArray() throws JsonProcessingException {
         List<Card> result = cardService.findAll();
         StringBuilder sb = new StringBuilder();
-        sb.append("{\"contentsTOC\":[");
+        sb.append("{\"contentsTOC\":[ ");
 
         for (Card card : result) {
             String idResult = objectMapper.writeValueAsString(card.getId());

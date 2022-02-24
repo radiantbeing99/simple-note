@@ -3,6 +3,7 @@ package simple.simplenote.domain.contents;
 
 import lombok.Getter;
 import lombok.Setter;
+import simple.simplenote.domain.Member;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -24,4 +25,8 @@ public abstract class Card {
     private CardStatus cardStatus;
 
     private LocalDateTime lastModifiedTime;
+
+    @ManyToOne
+    @JoinColumn(name = "member_id")
+    private Member member;
 }

@@ -28,12 +28,14 @@ public class CardServiceTest {
     CardService cardService;
 
     @Test
-    @Rollback(value = true)
+    @Rollback(value = false)
+    @Transactional(readOnly = false)
     public void 등록(){
         //given
         Card card = new Text();
         card.setCardStatus(CardStatus.COMPLETE);
         card.setTitle("하하!");
+        card.setId(1L);
         cardService.add(card);
 
         //when

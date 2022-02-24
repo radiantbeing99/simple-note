@@ -1,22 +1,21 @@
 package simple.simplenote.domain;
 
 
-import lombok.Generated;
 import lombok.Getter;
 import lombok.Setter;
+import simple.simplenote.domain.contents.Card;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-@Getter @Setter
+@Getter
+@Setter
 public class Member {
+    @Id @Column(name = "member_id")
+    private String nickName;
 
-    @Id @GeneratedValue
-    private Long id;
-    private String username;
-
-
+    @OneToMany(mappedBy = "member")
+    private List<Card> cards = new ArrayList<>();
 }

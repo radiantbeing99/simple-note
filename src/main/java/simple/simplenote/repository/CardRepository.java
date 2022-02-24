@@ -6,12 +6,14 @@ import org.springframework.stereotype.Repository;
 import simple.simplenote.domain.contents.Card;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.util.List;
 
 @Repository
 @RequiredArgsConstructor
 public class CardRepository {
 
+    @PersistenceContext
     private final EntityManager em;
 
     public void save(Card card) {
