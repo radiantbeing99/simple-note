@@ -13,7 +13,6 @@ const _deleteButton = document.querySelector(".delete-button");
 _updateButton.setAttribute("disabled", "");
 _deleteButton.setAttribute("disabled", "");
 
-console.log("hello");
 paintLoginForm();
 paintQuote();
 createContent();
