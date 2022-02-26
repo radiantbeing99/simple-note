@@ -21,10 +21,11 @@ export function paintQuote() {
 
       const _figcaption = document.createElement("figcaption");
       _figcaption.classList.add("blockquote-footer");
-      _figcaption.innerText = quote.author;
+      _figcaption.innerText = quote.author ? quote.author : "unknown";
 
       _figure.appendChild(_blockquote);
       _figure.append(_figcaption);
       _quoteSpace.appendChild(_figure);
-    });
+    })
+    .catch((reason) => console.log(reason));
 }

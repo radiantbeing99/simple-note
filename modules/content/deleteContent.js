@@ -1,6 +1,7 @@
-import { getCurrentContent, paintContent, setDefaultContent } from "./contentFunctions.js";
-import { deleteAPI } from "./controlBackEndAPI.js";
-import { paintTOC } from "./paintTOC.js";
+import { getCurrentContent, setDefaultContent } from "./currentContent.js";
+import { paintContent } from "../paint/paintContent.js";
+import { deleteAPI } from "../REST_API/controlBackEndAPI.js";
+import { paintTOC } from "../paint/paintTOC.js";
 
 function handleClickDelete() {
   const currentContent = getCurrentContent();

@@ -1,6 +1,7 @@
-import { getAPI, patchAPI } from "./controlBackEndAPI.js";
-import { paintTOC } from "./paintTOC.js";
-import { getCurrentContent, paintContent, setCurrentContent } from "./contentFunctions.js";
+import { getAPI, patchAPI } from "../REST_API/controlBackEndAPI.js";
+import { paintTOC } from "../paint/paintTOC.js";
+import { getCurrentContent, setCurrentContent } from "./currentContent.js";
+import { paintContent } from "../paint/paintContent.js";
 
 const _updateButton = document.querySelector(".update-button");
 const _contentForm = document.querySelector(".content-form");

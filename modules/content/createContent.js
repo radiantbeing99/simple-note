@@ -1,8 +1,8 @@
 // FIXME: Create Submit 이후 active 안되는 문제, CSS 폼 쓸데없는거 삭제
-
-import { paintContent, setCurrentContent } from "./contentFunctions.js";
-import { getAPI, postAPI } from "./controlBackEndAPI.js";
-import { paintTOC } from "./paintTOC.js";
+import { paintContent } from "../paint/paintContent.js";
+import { setCurrentContent } from "./currentContent.js";
+import { getAPI, postAPI } from "../REST_API/controlBackEndAPI.js";
+import { paintTOC } from "../paint/paintTOC.js";
 
 const _createButton = document.querySelector(".create-button");
 const _contentForm = document.querySelector(".content-form");

@@ -1,4 +1,4 @@
-import { postAPI } from "./controlBackEndAPI.js";
+import { postAPI } from "../REST_API/controlBackEndAPI.js";
 
 const _loginFormSpace = document.querySelector("#login-form-space");
 const _contentsViewSpace = document.querySelector("#contents-view-space");

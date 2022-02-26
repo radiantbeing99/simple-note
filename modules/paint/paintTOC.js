@@ -1,6 +1,7 @@
-import { getAPI } from "./controlBackEndAPI.js";
-import { setCurrentContent, paintContent } from "./contentFunctions.js";
-import { closeUpdateForm } from "./updateContent.js";
+import { getAPI } from "../REST_API/controlBackEndAPI.js";
+import { setCurrentContent } from "../content/currentContent.js";
+import { paintContent } from "./paintContent.js";
+import { closeUpdateForm } from "../content/updateContent.js";
 
 const _tableOfContents = document.querySelector(".table-of-contents");
 const _updateButton = document.querySelector(".update-button");

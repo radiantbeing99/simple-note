@@ -1,12 +1,12 @@
-// FIXME:
+// FIXME: api 주소 변경
 
-import { paintContentTitle, paintContentDescription } from "./modules/contentFunctions.js";
-import { paintTOC } from "./modules/paintTOC.js";
-import { createContent } from "./modules/createContent.js";
-import { updateContent } from "./modules/updateContent.js";
-import { deleteContent } from "./modules/deleteContent.js";
-import { paintLoginForm } from "./modules/paintLoginForm.js";
-import { paintQuote } from "./modules/paintQuote.js";
+import { paintContentTitle, paintContentDescription } from "./modules/paint/paintContent.js";
+import { paintTOC } from "./modules/paint/paintTOC.js";
+import { createContent } from "./modules/content/createContent.js";
+import { updateContent } from "./modules/content/updateContent.js";
+import { deleteContent } from "./modules/content/deleteContent.js";
+import { paintLoginForm } from "./modules/paint/paintLoginForm.js";
+import { paintQuote } from "./modules/paint/paintQuote.js";
 
 const _updateButton = document.querySelector(".update-button");
 const _deleteButton = document.querySelector(".delete-button");
