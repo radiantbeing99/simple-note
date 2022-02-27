@@ -1,7 +1,22 @@
 // FIXME: error 처리
 
 const backEndAddress = "http://121.170.208.234";
-const _alertMessageSpace = document.querySelector("#alert-message-space");
+
+function paintErrorAlert(reason) {
+  const _alertMessageSpace = document.querySelector("#alert-message-space");
+  const _div = document.createElement("div");
+  _div.classList.add("alert", "alert-danger", "alert-dismissible");
+  _div.setAttribute("role", "alert");
+  _div.innerText = reason;
+  _alertMessageSpace.appendChild(_div);
+
+  const _button = document.createElement("button");
+  _button.setAttribute("type", "button");
+  _button.classList.add("btn-close");
+  _button.setAttribute("data-bs-dismiss", "alert");
+  _button.setAttribute("aria-label", "Close");
+  _div.appendChild(_button);
+}
 
 export function getAPI(route, func, errorMessage) {
   fetch(`${backEndAddress}/${route}`, { method: "GET" })
@@ -12,19 +27,7 @@ export function getAPI(route, func, errorMessage) {
       func(data);
     })
     .catch((reason) => {
-      // 경고창 출력
-      const _div = document.createElement("div");
-      _div.classList.add("alert", "alert-danger", "alert-dismissible");
-      _div.setAttribute("role", "alert");
-      _div.innerText = reason;
-      _alertMessageSpace.appendChild(_div);
-
-      const _button = document.createElement("button");
-      _button.setAttribute("type", "button");
-      _button.classList.add("btn-close");
-      _button.setAttribute("data-bs-dismiss", "alert");
-      _button.setAttribute("aria-label", "Close");
-      _div.appendChild(_button);
+      paintErrorAlert(reason);
     });
 }
 

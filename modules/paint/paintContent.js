@@ -1,7 +1,7 @@
 import { currentContent } from "../content/currentContent.js";
 
-const _contentTitle = document.querySelector(".content-title");
-const _contentDescription = document.querySelector(".content-description");
+const _contentTitle = document.querySelector("#content-title-space");
+const _contentDescription = document.querySelector("#content-description-space");
 const _contentLastModified = document.querySelector("#content-last-modified-time");
 
 export function paintContentTitle() {

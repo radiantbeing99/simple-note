@@ -24,15 +24,15 @@
       <div id="quote-space"></div>
       <!-- Contents View -->
       <div class="invisible" id="contents-view-space">
-        <div class="table-of-contents list-group mb-3"></div>
+        <div class="list-group mb-3" id="table-of-contents"></div>
         <div class="btn-group mb-3" role="group" aria-label="Basic example">
-          <button type="button" class="create-button btn btn-primary">Create</button>
-          <button type="button" class="update-button btn btn-primary">Update</button>
+          <button type="button" class="btn btn-primary" id="create-button">Create</button>
+          <button type="button" class="btn btn-primary" id="update-button" disabled>Update</button>
         </div>
-        <button type="button" class="delete-button btn btn-danger mb-3">Delete</button>
-        <div class="content-form"></div>
-        <h2 class="content-title"></h2>
-        <div class="content-description"></div>
+        <button type="button" class="btn btn-danger mb-3" id="delete-button" disabled>Delete</button>
+        <div id="content-form-space"></div>
+        <h2 id="content-title-space"></h2>
+        <div id="content-description-space"></div>
         <div id="content-last-modified-time"></div>
       </div>
     </div>

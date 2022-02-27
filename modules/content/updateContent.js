@@ -3,8 +3,8 @@ import { paintTOC } from "../paint/paintTOC.js";
 import { getCurrentContent, setCurrentContent } from "./currentContent.js";
 import { paintContent } from "../paint/paintContent.js";
 
-const _updateButton = document.querySelector(".update-button");
-const _contentForm = document.querySelector(".content-form");
+const _updateButton = document.querySelector("#update-button");
+const _contentForm = document.querySelector("#content-form-space");
 
 const state = {
   formOpen: false,
@@ -83,7 +83,6 @@ function handleButtonClose() {
 }
 
 function handleSubmit(event) {
-  debugger;
   function paint(contentID) {
     getAPI(`contents/${contentID}`, (content) => {
       setCurrentContent(content);

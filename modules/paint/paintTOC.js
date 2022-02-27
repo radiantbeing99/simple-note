@@ -3,21 +3,23 @@ import { setCurrentContent } from "../content/currentContent.js";
 import { paintContent } from "./paintContent.js";
 import { closeUpdateForm } from "../content/updateContent.js";
 
-const _tableOfContents = document.querySelector(".table-of-contents");
-const _updateButton = document.querySelector(".update-button");
-const _deleteButton = document.querySelector(".delete-button");
+const _tableOfContents = document.querySelector("#table-of-contents");
+const _updateButton = document.querySelector("#update-button");
+const _deleteButton = document.querySelector("#delete-button");
 
 const state = {
-  isDisabledDeleted: false,
+  updateButtonVisible: false,
+  deleteButtonVisible: false,
 };
 
 function handleClickAnchor(event, contentID) {
   event.preventDefault();
 
-  if (state.isDisabledDeleted === false) {
+  if (!state.updateButtonVisible && !state.deleteButtonVisible) {
     _updateButton.removeAttribute("disabled");
     _deleteButton.removeAttribute("disabled");
-    state.isDisabledDeleted = true;
+    state.updateButtonVisible = true;
+    state.deleteButtonVisible = true;
   }
 
   const _anchor = event.target;
@@ -39,7 +41,8 @@ export function activeButton(element) {
 }
 
 export function paintTOC() {
-  const paint = getAPI("contents/toc", (data) => {
+  _tableOfContents.innerHTML = "";
+  getAPI("contents/toc", (data) => {
     const contents = data.contentsTOC;
     contents.forEach((content) => {
       const a = document.createElement("a");
@@ -50,10 +53,4 @@ export function paintTOC() {
       _tableOfContents.appendChild(a);
     });
   });
-  if (_tableOfContents.innerHTML === "") {
-    paint;
-  } else {
-    _tableOfContents.innerHTML = "";
-    paint;
-  }
 }
