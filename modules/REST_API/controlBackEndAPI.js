@@ -1,9 +1,9 @@
 // FIXME: error 처리
 
 // 개발 서버
-const backEndAddress = "http://121.170.208.234";
+// const backEndAddress = "http://121.170.208.234";
 // 배포 서버
-// const backEndAddress = "https://noteforu.herokuapp.com";
+const backEndAddress = "https://noteforu.herokuapp.com";
 
 function paintErrorAlert(reason, errorMessage) {
   const _alertMessageSpace = document.querySelector("#alert-message-space");
