@@ -11,10 +11,15 @@ function handleSubmit(event) {
   const _formInputID = document.querySelector("#form-input-id");
   const nickname = _formInputID.value;
   localStorage.setItem("nickname", nickname);
-  postAPI("members", { nickname: nickname }, () => {
-    _loginFormSpace.remove();
-    _contentsViewSpace.classList.remove("invisible");
-  });
+  postAPI(
+    "members",
+    { nickname: nickname },
+    () => {
+      _loginFormSpace.remove();
+      _contentsViewSpace.classList.remove("invisible");
+    },
+    "로그인 정보를 제출하는 도중에 오류가 발생했습니다."
+  );
 }
 
 export function paintLoginForm() {

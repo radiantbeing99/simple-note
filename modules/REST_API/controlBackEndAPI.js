@@ -1,16 +1,16 @@
 // FIXME: error 처리
 
 // 개발 서버
-// const backEndAddress = "http://121.170.208.234";
+const backEndAddress = "http://121.170.208.234";
 // 배포 서버
-const backEndAddress = "https://noteforu.herokuapp.com";
+// const backEndAddress = "https://noteforu.herokuapp.com";
 
-function paintErrorAlert(reason) {
+function paintErrorAlert(reason, errorMessage) {
   const _alertMessageSpace = document.querySelector("#alert-message-space");
   const _div = document.createElement("div");
   _div.classList.add("alert", "alert-danger", "alert-dismissible");
   _div.setAttribute("role", "alert");
-  _div.innerText = reason;
+  _div.innerText = `${errorMessage} (${reason})`;
   _alertMessageSpace.appendChild(_div);
 
   const _button = document.createElement("button");
@@ -30,7 +30,7 @@ export function getAPI(route, func, errorMessage) {
       func(data);
     })
     .catch((reason) => {
-      paintErrorAlert(reason);
+      paintErrorAlert(reason, errorMessage);
     });
 }
 
@@ -52,19 +52,7 @@ export function postAPI(route, body, func, errorMessage) {
       func(data);
     })
     .catch((reason) => {
-      // 경고창 출력
-      const _div = document.createElement("div");
-      _div.classList.add("alert", "alert-danger", "alert-dismissible");
-      _div.setAttribute("role", "alert");
-      _div.innerText = reason;
-      _alertMessageSpace.appendChild(_div);
-
-      const _button = document.createElement("button");
-      _button.setAttribute("type", "button");
-      _button.classList.add("btn-close");
-      _button.setAttribute("data-bs-dismiss", "alert");
-      _button.setAttribute("aria-label", "Close");
-      _div.appendChild(_button);
+      paintErrorAlert(reason, errorMessage);
     });
 }
 
@@ -82,19 +70,7 @@ export function patchAPI(route, body, func, errorMessage) {
       func(data);
     })
     .catch((reason) => {
-      // 경고창 출력
-      const _div = document.createElement("div");
-      _div.classList.add("alert", "alert-danger", "alert-dismissible");
-      _div.setAttribute("role", "alert");
-      _div.innerText = reason;
-      _alertMessageSpace.appendChild(_div);
-
-      const _button = document.createElement("button");
-      _button.setAttribute("type", "button");
-      _button.classList.add("btn-close");
-      _button.setAttribute("data-bs-dismiss", "alert");
-      _button.setAttribute("aria-label", "Close");
-      _div.appendChild(_button);
+      paintErrorAlert(reason, errorMessage);
     });
 }
 
@@ -110,18 +86,6 @@ export function deleteAPI(route, func, errorMessage) {
       func(data);
     })
     .catch((reason) => {
-      // 경고창 출력
-      const _div = document.createElement("div");
-      _div.classList.add("alert", "alert-danger", "alert-dismissible");
-      _div.setAttribute("role", "alert");
-      _div.innerText = reason;
-      _alertMessageSpace.appendChild(_div);
-
-      const _button = document.createElement("button");
-      _button.setAttribute("type", "button");
-      _button.classList.add("btn-close");
-      _button.setAttribute("data-bs-dismiss", "alert");
-      _button.setAttribute("aria-label", "Close");
-      _div.appendChild(_button);
+      paintErrorAlert(reason, errorMessage);
     });
 }

@@ -84,11 +84,15 @@ function handleButtonClose() {
 
 function handleSubmit(event) {
   function paint(contentID) {
-    getAPI(`contents/${contentID}`, (content) => {
-      setCurrentContent(content);
-      paintTOC();
-      paintContent();
-    });
+    getAPI(
+      `contents/${contentID}`,
+      (content) => {
+        setCurrentContent(content);
+        paintTOC();
+        paintContent();
+      },
+      "수정된 글의 데이터를 받아오는데 실패하였습니다."
+    );
   }
   event.preventDefault();
   const id = document.querySelector(".update-id");
@@ -112,9 +116,13 @@ export function updateContent() {
     if (state.formOpen) {
       handleButtonClose();
     } else {
-      getAPI(`contents/${getCurrentContent().id}`, (content) => {
-        handleButtonOpen(content);
-      });
+      getAPI(
+        `contents/${getCurrentContent().id}`,
+        (content) => {
+          handleButtonOpen(content);
+        },
+        "선택한 글의 정보를 받아오는데 실패하였습니다."
+      );
     }
   });
 }

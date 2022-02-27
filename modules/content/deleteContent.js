@@ -5,11 +5,15 @@ import { paintTOC } from "../paint/paintTOC.js";
 
 function handleClickDelete() {
   const currentContent = getCurrentContent();
-  deleteAPI(`contents/${currentContent.id}`, (data) => {
-    paintTOC();
-    setDefaultContent();
-    paintContent();
-  });
+  deleteAPI(
+    `contents/${currentContent.id}`,
+    (data) => {
+      paintTOC();
+      setDefaultContent();
+      paintContent();
+    },
+    "선택한 글을 삭제하는데 실패하였습니다."
+  );
 }
 
 export function deleteContent() {

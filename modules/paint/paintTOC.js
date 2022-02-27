@@ -29,11 +29,15 @@ function handleClickAnchor(event, contentID) {
   });
   _anchor.classList.add("active");
 
-  getAPI(`contents/${contentID}`, (content) => {
-    setCurrentContent(content);
-    paintContent();
-    closeUpdateForm();
-  });
+  getAPI(
+    `contents/${contentID}`,
+    (content) => {
+      setCurrentContent(content);
+      paintContent();
+      closeUpdateForm();
+    },
+    "선택한 글의 데이터를 받아오는데 실패하였습니다."
+  );
 }
 
 export function activeButton(element) {
@@ -42,15 +46,19 @@ export function activeButton(element) {
 
 export function paintTOC() {
   _tableOfContents.innerHTML = "";
-  getAPI("contents/toc", (data) => {
-    const contents = data.contentsTOC;
-    contents.forEach((content) => {
-      const a = document.createElement("a");
-      a.innerText = content.title;
-      a.setAttribute("id", `content-${content.id}`);
-      a.classList.add("list-group-item", "list-group-item-action");
-      a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
-      _tableOfContents.appendChild(a);
-    });
-  });
+  getAPI(
+    "contents/toc",
+    (data) => {
+      const contents = data.contentsTOC;
+      contents.forEach((content) => {
+        const a = document.createElement("a");
+        a.innerText = content.title;
+        a.setAttribute("id", `content-${content.id}`);
+        a.classList.add("list-group-item", "list-group-item-action");
+        a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
+        _tableOfContents.appendChild(a);
+      });
+    },
+    "글 목록을 가져오는데 실패하였습니다."
+  );
 }
