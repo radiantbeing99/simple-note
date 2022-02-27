@@ -1,3 +1,6 @@
+// FIXME: 로그인 확인 기능 미흡. 로그인이 확인되면 localStrage에 바꾸는 것으로 변경.
+// 로그인 확인하는 부분은 따로 인증 폴더를 만들어 떼어내기
+
 import { postAPI } from "../REST_API/controlBackEndAPI.js";
 
 const _loginFormSpace = document.querySelector("#login-form-space");

@@ -83,14 +83,20 @@ function handleButtonClose() {
 }
 
 function handleSubmit(event) {
+  debugger;
+  function paint(contentID) {
+    getAPI(`contents/${contentID}`, (content) => {
+      setCurrentContent(content);
+      paintTOC();
+      paintContent();
+    });
+  }
   event.preventDefault();
   const id = document.querySelector(".update-id");
   const title = document.querySelector(".update-title");
   const description = document.querySelector(".update-description");
   const updatedContent = { id: id.value, title: title.value, description: description.value };
-  patchAPI(`contents/${updatedContent.id}`, updatedContent, paintTOC);
-  setCurrentContent(updatedContent);
-  paintContent();
+  patchAPI(`contents/${updatedContent.id}`, updatedContent, () => paint(updatedContent.id));
   handleButtonClose();
 }
 

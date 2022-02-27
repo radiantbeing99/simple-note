@@ -1,13 +1,15 @@
+// FIXME: error 처리
+
 const backEndAddress = "http://121.170.208.234";
 const _alertMessageSpace = document.querySelector("#alert-message-space");
 
-export function getAPI(route, resolveFunc, rejectFunc) {
-  fetch(`${backEndAddress}/api/${route}`, { method: "GET" })
+export function getAPI(route, func, errorMessage) {
+  fetch(`${backEndAddress}/${route}`, { method: "GET" })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      resolveFunc(data);
+      func(data);
     })
     .catch((reason) => {
       // 경고창 출력
@@ -23,16 +25,11 @@ export function getAPI(route, resolveFunc, rejectFunc) {
       _button.setAttribute("data-bs-dismiss", "alert");
       _button.setAttribute("aria-label", "Close");
       _div.appendChild(_button);
-
-      // reject function 실행
-      if (rejectFunc !== undefined) {
-        rejectFunc();
-      }
     });
 }
 
-export function postAPI(route, body, resolveFunc, rejectFunc) {
-  fetch(`${backEndAddress}/api/${route}`, {
+export function postAPI(route, body, func, errorMessage) {
+  fetch(`${backEndAddress}/${route}`, {
     method: "POST",
     body: JSON.stringify(body),
     headers: {
@@ -46,7 +43,7 @@ export function postAPI(route, body, resolveFunc, rejectFunc) {
       if (data.status !== "Good Received") {
         console.log("Error!");
       }
-      resolveFunc(data);
+      func(data);
     })
     .catch((reason) => {
       // 경고창 출력
@@ -62,16 +59,11 @@ export function postAPI(route, body, resolveFunc, rejectFunc) {
       _button.setAttribute("data-bs-dismiss", "alert");
       _button.setAttribute("aria-label", "Close");
       _div.appendChild(_button);
-
-      // reject function 실행
-      if (rejectFunc !== undefined) {
-        rejectFunc();
-      }
     });
 }
 
-export function patchAPI(route, body, resolveFunc, rejectFunc) {
-  fetch(`${backEndAddress}/api/${route}`, {
+export function patchAPI(route, body, func, errorMessage) {
+  fetch(`${backEndAddress}/${route}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(body),
@@ -81,7 +73,7 @@ export function patchAPI(route, body, resolveFunc, rejectFunc) {
       if (data.status !== "Good Received") {
         console.log("Error!");
       }
-      resolveFunc(data);
+      func(data);
     })
     .catch((reason) => {
       // 경고창 출력
@@ -97,16 +89,11 @@ export function patchAPI(route, body, resolveFunc, rejectFunc) {
       _button.setAttribute("data-bs-dismiss", "alert");
       _button.setAttribute("aria-label", "Close");
       _div.appendChild(_button);
-
-      // reject function 실행
-      if (rejectFunc !== undefined) {
-        rejectFunc();
-      }
     });
 }
 
-export function deleteAPI(route, resolveFunc, rejectFunc) {
-  fetch(`${backEndAddress}/api/${route}`, {
+export function deleteAPI(route, func, errorMessage) {
+  fetch(`${backEndAddress}/${route}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
@@ -114,7 +101,7 @@ export function deleteAPI(route, resolveFunc, rejectFunc) {
       if (data.status !== "Good Received") {
         console.log("Error!");
       }
-      resolveFunc(data);
+      func(data);
     })
     .catch((reason) => {
       // 경고창 출력
@@ -130,10 +117,5 @@ export function deleteAPI(route, resolveFunc, rejectFunc) {
       _button.setAttribute("data-bs-dismiss", "alert");
       _button.setAttribute("aria-label", "Close");
       _div.appendChild(_button);
-
-      // reject function 실행
-      if (rejectFunc !== undefined) {
-        rejectFunc();
-      }
     });
 }

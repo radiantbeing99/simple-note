@@ -1,4 +1,4 @@
-// FIXME: Create Submit 이후 active 안되는 문제, CSS 폼 쓸데없는거 삭제
+// FIXME: Create Submit 이후 active 안되는 문제
 import { paintContent } from "../paint/paintContent.js";
 import { setCurrentContent } from "./currentContent.js";
 import { getAPI, postAPI } from "../REST_API/controlBackEndAPI.js";
@@ -85,14 +85,19 @@ function handleButtonClose() {
 }
 
 function handleSubmit(event) {
+  function paint(contentID) {
+    getAPI(`contents/${contentID}`, (content) => {
+      setCurrentContent(content);
+      paintTOC();
+      paintContent();
+    });
+  }
   event.preventDefault();
   const id = document.querySelector(".create-id");
   const title = document.querySelector(".create-title");
   const description = document.querySelector(".create-description");
   const createdContent = { id: id.value, title: title.value, description: description.value };
-  postAPI("contents", createdContent, paintTOC);
-  setCurrentContent(createdContent);
-  paintContent();
+  postAPI("contents", createdContent, () => paint(createdContent.id));
   handleButtonClose();
   // active 코드
 }
