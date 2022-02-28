@@ -46,9 +46,6 @@ export function postAPI(route, body, func, errorMessage) {
       return response.json();
     })
     .then((data) => {
-      if (data.status !== "Good Received") {
-        console.log("Error!");
-      }
       func(data);
     })
     .catch((reason) => {
@@ -64,9 +61,6 @@ export function patchAPI(route, body, func, errorMessage) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.status !== "Good Received") {
-        console.log("Error!");
-      }
       func(data);
     })
     .catch((reason) => {
@@ -80,9 +74,6 @@ export function deleteAPI(route, func, errorMessage) {
   })
     .then((response) => response.json())
     .then((data) => {
-      if (data.status !== "Good Received") {
-        console.log("Error!");
-      }
       func(data);
     })
     .catch((reason) => {
