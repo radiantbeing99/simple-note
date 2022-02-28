@@ -9,11 +9,14 @@ const _contentsViewSpace = document.querySelector("#contents-view-space");
 function handleSubmit(event) {
   event.preventDefault();
   const _formInputID = document.querySelector("#form-input-id");
-  const nickname = _formInputID.value;
-  localStorage.setItem("nickname", nickname);
+  const _formInputPW = document.querySelector("#form-input-pw");
+  const userName = _formInputID.value;
+  const password = _formInputPW.value;
+  // 인증을 받은 뒤에 하는 localStorage에 바꾸는 것으로 변경
+  localStorage.setItem("nickname", userName);
   postAPI(
     "members",
-    { nickname: nickname },
+    { nickname: userName, password: password },
     () => {
       _loginFormSpace.remove();
       _contentsViewSpace.classList.remove("invisible");
@@ -27,28 +30,41 @@ export function paintLoginForm() {
     _contentsViewSpace.classList.remove("invisible");
   } else {
     const _form = document.createElement("form");
-    const _label = document.createElement("label");
-    const _input = document.createElement("input");
+    const _userNameLabel = document.createElement("label");
+    const _userNameInput = document.createElement("input");
+    const _passwordLabel = document.createElement("label");
+    const _passwordInput = document.createElement("input");
     const _submit = document.createElement("input");
 
     // form attributes
     _form.addEventListener("submit", handleSubmit);
-    // label attributes
-    _label.classList.add("form-label");
-    _label.setAttribute("for", "form-input-id");
-    _label.innerText = "Nickname";
-    // input attributes
-    _input.classList.add("form-control", "mb-3");
-    _input.setAttribute("required", "");
-    _input.setAttribute("type", "text");
-    _input.setAttribute("id", "form-input-id");
+    // userNameLabel attributes
+    _userNameLabel.classList.add("form-label");
+    _userNameLabel.setAttribute("for", "form-input-id");
+    _userNameLabel.innerText = "Name";
+    // userNameInput attributes
+    _userNameInput.classList.add("form-control", "mb-3");
+    _userNameInput.setAttribute("required", "");
+    _userNameInput.setAttribute("type", "text");
+    _userNameInput.setAttribute("id", "form-input-id");
+    // passwordLabel attributes
+    _passwordLabel.classList.add("form-label");
+    _passwordLabel.setAttribute("for", "form-input-pw");
+    _passwordLabel.innerText = "Password";
+    // passwordInput attributes
+    _passwordInput.classList.add("form-control", "mb-3");
+    _passwordInput.setAttribute("required", "");
+    _passwordInput.setAttribute("type", "password");
+    _passwordInput.setAttribute("id", "form-input-pw");
     // submit attributes
     _submit.classList.add("btn", "btn-primary", "mb-3");
     _submit.setAttribute("type", "submit");
     _submit.setAttribute("value", "Submit");
 
-    _form.appendChild(_label);
-    _form.appendChild(_input);
+    _form.appendChild(_userNameLabel);
+    _form.appendChild(_userNameInput);
+    _form.appendChild(_passwordLabel);
+    _form.appendChild(_passwordInput);
     _form.appendChild(_submit);
     _loginFormSpace.appendChild(_form);
   }
