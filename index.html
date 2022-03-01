@@ -15,12 +15,37 @@
     <title>Simple Note</title>
   </head>
   <body>
+    <!-- Navigation Bar -->
+    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-3">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+          <img src="/logo_light.png" alt="" width="30" height="30" class="d-inline-block align-text-top" />
+          Simple Note</a
+        >
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNavAltMarkup"
+          aria-controls="navbarNavAltMarkup"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" href="#">Home</a>
+            <a class="nav-link" href="#">Features</a>
+          </div>
+        </div>
+      </div>
+    </nav>
     <div class="container">
-      <h1 class="display-3 m-3">Simple Note</h1>
       <!-- Alert Message -->
       <div id="alert-message-space"></div>
       <!-- Login -->
-      <div id="login-form-space"></div>
+      <div id="sign-form-space"></div>
       <div id="quote-space"></div>
       <!-- Contents View -->
       <div class="invisible" id="contents-view-space">
@@ -42,5 +67,6 @@
       crossorigin="anonymous"
     ></script>
     <script type="module" src="main.js"></script>
+    <script src="./modules/security/jsencrypt.min.js"></script>
   </body>
 </html>

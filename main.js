@@ -6,10 +6,16 @@ import { paintTOC } from "./modules/paint/paintTOC.js";
 import { createContent } from "./modules/content/createContent.js";
 import { updateContent } from "./modules/content/updateContent.js";
 import { deleteContent } from "./modules/content/deleteContent.js";
-import { paintLoginForm } from "./modules/paint/paintLoginForm.js";
+import { paintSignForm } from "./modules/paint/paintSignForm.js";
 import { paintQuote } from "./modules/paint/paintQuote.js";
 
-paintLoginForm();
+paintSignForm("sign-in");
+if (localStorage.getItem("nickname")) {
+  const _signForm = document.querySelector("#sign-form");
+  _signForm.remove();
+  const _contentsViewSpace = document.querySelector("#contents-view-space");
+  _contentsViewSpace.classList.remove("invisible");
+}
 paintQuote();
 createContent();
 updateContent();

@@ -11,7 +11,8 @@ export function paintQuote() {
       };
 
       const _figure = document.createElement("figure");
-      _figure.classList.add("text-center");
+      _figure.classList.add("text-center", "m-3");
+      _figure.id = "quote";
 
       const _blockquote = document.createElement("blockquote");
       _blockquote.classList.add("blockquote");
