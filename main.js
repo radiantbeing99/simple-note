@@ -8,14 +8,30 @@ import { updateContent } from "./modules/content/updateContent.js";
 import { deleteContent } from "./modules/content/deleteContent.js";
 import { paintSignForm } from "./modules/paint/paintSignForm.js";
 import { paintQuote } from "./modules/paint/paintQuote.js";
+import { paintUserToNav } from "./modules/paint/paintUserToNav.js";
 
+const state = {
+  signIn: null,
+};
+
+state.signIn = localStorage.getItem("nickname") ? true : false;
+
+paintUserToNav();
 paintSignForm("sign-in");
-if (localStorage.getItem("nickname")) {
+if (state.signIn) {
   const _signForm = document.querySelector("#sign-form");
-  _signForm.remove();
   const _contentsViewSpace = document.querySelector("#contents-view-space");
-  _contentsViewSpace.classList.remove("invisible");
+  const _signOutButton = document.querySelector("#sign-out-button");
+  _signForm.remove();
+  _contentsViewSpace.classList.remove("d-none");
+  _signOutButton.classList.remove("d-none");
 }
+
+const _signOutButton = document.querySelector("#sign-out-button");
+_signOutButton.addEventListener("click", (event) => {
+  localStorage.removeItem("nickname");
+  location.reload();
+});
 paintQuote();
 createContent();
 updateContent();

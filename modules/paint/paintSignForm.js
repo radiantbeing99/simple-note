@@ -4,6 +4,7 @@
 import { postAPI } from "../REST_API/controlBackEndAPI.js";
 import { encrypt } from "../security/encrypt.js";
 import { paintAlert } from "./paintAlert.js";
+import { paintUserToNav } from "./paintUserToNav.js";
 
 const _loginFormSpace = document.querySelector("#sign-form-space");
 const _contentsViewSpace = document.querySelector("#contents-view-space");
@@ -112,7 +113,10 @@ function handleSubmit(event, signMode) {
           } else {
             removeSignForm();
             localStorage.setItem("nickname", userName);
-            _contentsViewSpace.classList.remove("invisible");
+            _contentsViewSpace.classList.remove("d-none");
+            const _signOutButton = document.querySelector("#sign-out-button");
+            _signOutButton.classList.remove("d-none");
+            paintUserToNav();
           }
           // Sign Up Situation
         } else if (signMode === "sign-up") {
