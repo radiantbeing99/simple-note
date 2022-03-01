@@ -7,20 +7,20 @@ const backEndAddress = "http://krrr8.sytes.net";
 // 배포 서버
 // const backEndAddress = "https://noteforu.herokuapp.com";
 
-export function getAPI(route, func, errorMessage) {
+export function getAPI(route, afterGetDataFunction, errorMessage) {
   fetch(`${backEndAddress}/${route}`, { method: "GET" })
     .then((response) => {
       return response.json();
     })
     .then((data) => {
-      func(data);
+      afterGetDataFunction(data);
     })
     .catch((reason) => {
       paintAlert("danger", reason, errorMessage);
     });
 }
 
-export function postAPI(route, body, func, errorMessage) {
+export function postAPI(route, body, afterGetDataFunction, errorMessage) {
   fetch(`${backEndAddress}/${route}`, {
     method: "POST",
     body: JSON.stringify(body),
@@ -32,14 +32,14 @@ export function postAPI(route, body, func, errorMessage) {
       return response.json();
     })
     .then((data) => {
-      func(data);
+      afterGetDataFunction(data);
     })
     .catch((reason) => {
       paintAlert("danger", reason, errorMessage);
     });
 }
 
-export function patchAPI(route, body, func, errorMessage) {
+export function patchAPI(route, body, afterGetDataFunction, errorMessage) {
   fetch(`${backEndAddress}/${route}`, {
     method: "PATCH",
     headers: { "Content-Type": "application/json" },
@@ -47,20 +47,20 @@ export function patchAPI(route, body, func, errorMessage) {
   })
     .then((response) => response.json())
     .then((data) => {
-      func(data);
+      afterGetDataFunction(data);
     })
     .catch((reason) => {
       paintAlert("danger", reason, errorMessage);
     });
 }
 
-export function deleteAPI(route, func, errorMessage) {
+export function deleteAPI(route, afterGetDataFunction, errorMessage) {
   fetch(`${backEndAddress}/${route}`, {
     method: "DELETE",
   })
     .then((response) => response.json())
     .then((data) => {
-      func(data);
+      afterGetDataFunction(data);
     })
     .catch((reason) => {
       paintAlert("danger", reason, errorMessage);

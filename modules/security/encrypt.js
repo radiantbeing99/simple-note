@@ -1,10 +1,14 @@
-export function encrypt(plainText, func) {
-  fetch("./modules/security/key.json")
-    .then((response) => response.json())
-    .then((KEY) => {
+import { getAPI } from "../REST_API/controlBackEndAPI.js";
+
+export function encrypt(plainText, afterEncryptedFunc) {
+  getAPI(
+    "public-key",
+    (data) => {
       const crypt = new JSEncrypt();
-      crypt.setPublicKey(KEY.PUBLIC_KEY);
+      crypt.setPublicKey(data.PUBLIC_KEY);
       const encryptedText = crypt.encrypt(plainText);
-      func(encryptedText);
-    });
+      afterEncryptedFunc(encryptedText);
+    },
+    "암호화 도중 오류가 발생하였습니다."
+  );
 }

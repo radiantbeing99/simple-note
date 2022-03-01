@@ -30,7 +30,6 @@ export function paintSignForm(signMode) {
     subButtonText = "Cancel";
     subButtonType = "btn-outline-danger";
   }
-
   const _form = document.createElement("form");
   const _header = document.createElement("h3");
   const _userNameLabel = document.createElement("label");
@@ -42,7 +41,7 @@ export function paintSignForm(signMode) {
 
   // form attributes
   _form.addEventListener("submit", (event) => handleSubmit(event, signMode));
-  _form.classList.add("p-4", "border", "bg-light");
+  _form.classList.add("p-4", "border", "bg-light", "mt-5", "mb-5");
   _form.id = "sign-form";
   // header attributes
   _header.innerText = headerText;
@@ -104,25 +103,25 @@ function handleSubmit(event, signMode) {
       `members/${signMode}`,
       { nickname: userName, password: encryptedPW },
       (data) => {
+        // Sign In Situation
         if (signMode === "sign-in") {
           if (!data.idMatch) {
             paintAlert("warning", data.errorMessage, "등록되지 않은 유저입니다.");
           } else if (data.idMatch && !data.passWordMatch) {
             paintAlert("warning", data.errorMessage, "비밀번호가 일치하지 않습니다.");
           } else {
-            const _signForm = document.querySelector("#sign-form");
-            _signForm.remove();
+            removeSignForm();
             localStorage.setItem("nickname", userName);
             _contentsViewSpace.classList.remove("invisible");
           }
+          // Sign Up Situation
         } else if (signMode === "sign-up") {
-          if (!data.isRegistered) {
+          if (!data.registered) {
             paintAlert("warning", data.errorMessage, "중복된 유저 이름입니다. 다른 이름을 사용해 주세요.");
           } else {
             paintAlert("success", data.errorMessage, "회원 가입에 성공하였습니다!");
-            const _signForm = document.querySelector("#sign-form");
             removeSignForm();
-            paintSignForm("sign-up");
+            paintSignForm("sign-in");
           }
         }
       },

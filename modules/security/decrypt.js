@@ -1,10 +1,14 @@
-export function decrypt(encryptedText, func) {
-  fetch("./modules/security/key.json")
-    .then((response) => response.json())
-    .then((KEY) => {
+import { getAPI } from "../REST_API/controlBackEndAPI.js";
+
+export function decrypt(plainText, afterDecryptedFunc) {
+  getAPI(
+    "public-key",
+    (PUBLIC_KEY) => {
       const crypt = new JSEncrypt();
-      crypt.setPrivateKey(KEY.PRIVATE_KEY);
-      const decryptedText = crypt.decrypt(encryptedText);
-      func(decryptedText);
-    });
+      crypt.setPublicKey(PUBLIC_KEY);
+      const decryptedText = crypt.decrypt(plainText);
+      afterDecryptedFunc(decryptedText);
+    },
+    "복호화 도중 오류가 발생하였습니다."
+  );
 }
