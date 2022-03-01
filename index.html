@@ -16,7 +16,7 @@
   </head>
   <body>
     <!-- Navigation Bar -->
-    <nav class="navbar sticky-top navbar-expand-lg navbar-dark bg-dark mb-3">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
       <div class="container-fluid">
         <a class="navbar-brand" href="/">
           <img src="./logo_light.png" alt="" width="30" height="30" class="d-inline-block align-text-top" />
@@ -26,17 +26,28 @@
           class="navbar-toggler"
           type="button"
           data-bs-toggle="collapse"
-          data-bs-target="#navbarNavAltMarkup"
-          aria-controls="navbarNavAltMarkup"
+          data-bs-target="#navbarTogglerDemo02"
+          aria-controls="navbarTogglerDemo02"
           aria-expanded="false"
           aria-label="Toggle navigation"
         >
           <span class="navbar-toggler-icon"></span>
         </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-          <div class="navbar-nav">
-            <a class="nav-link active" href="#">Home</a>
-            <a class="nav-link" href="#">Features</a>
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a class="nav-link active" aria-current="page" href="#">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="#">Link</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link disabled">Disabled</a>
+            </li>
+          </ul>
+          <div class="d-flex" id="nav-right-components">
+            <span class="navbar-text me-3" id="user-name-space"></span>
+            <button class="btn btn-outline-danger d-none" type="button" id="sign-out-button">Sign Out</button>
           </div>
         </div>
       </div>
@@ -48,7 +59,7 @@
       <div id="sign-form-space"></div>
       <div id="quote-space"></div>
       <!-- Contents View -->
-      <div class="invisible" id="contents-view-space">
+      <div class="d-none" id="contents-view-space">
         <div class="list-group mb-3" id="table-of-contents"></div>
         <div class="btn-group mb-3" role="group" aria-label="Basic example">
           <button type="button" class="btn btn-primary" id="create-button">Create</button>
