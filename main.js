@@ -21,10 +21,10 @@ paintSignForm("sign-in");
 if (state.signIn) {
   const _signForm = document.querySelector("#sign-form");
   const _contentsViewSpace = document.querySelector("#contents-view-space");
-  const _signOutButton = document.querySelector("#sign-out-button");
+  const _navRightComponents = document.querySelector("#nav-right-components");
   _signForm.remove();
   _contentsViewSpace.classList.remove("d-none");
-  _signOutButton.classList.remove("d-none");
+  _navRightComponents.classList.remove("d-none");
 }
 
 const _signOutButton = document.querySelector("#sign-out-button");

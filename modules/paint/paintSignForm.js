@@ -114,8 +114,8 @@ function handleSubmit(event, signMode) {
             removeSignForm();
             localStorage.setItem("nickname", userName);
             _contentsViewSpace.classList.remove("d-none");
-            const _signOutButton = document.querySelector("#sign-out-button");
-            _signOutButton.classList.remove("d-none");
+            const _navRightComponents = document.querySelector("#nav-right-components");
+            _navRightComponents.classList.remove("d-none");
             paintUserToNav();
           }
           // Sign Up Situation
