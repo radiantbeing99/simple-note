@@ -11,14 +11,23 @@ const state = {
   formOpen: false,
 };
 
+export function createContent() {
+  _createButton.addEventListener("click", () => {
+    if (state.formOpen) {
+      handleButtonClose();
+    } else {
+      handleButtonOpen();
+    }
+  });
+}
+
 function handleButtonOpen() {
   getAPI(
-    "contents/max_contents",
+    "contents/max-contents",
     (MAX_CONTENTS_NUM) => {
       state.formOpen = true;
 
       const NEW_ID = MAX_CONTENTS_NUM + 1;
-      console.log(NEW_ID);
 
       const _form = document.createElement("form");
       const _titleDiv = document.createElement("div");
@@ -27,7 +36,8 @@ function handleButtonOpen() {
       const _descriptionDiv = document.createElement("div");
       const _descriptionLabel = document.createElement("label");
       const _header = document.createElement("h3");
-      const _hidden = document.createElement("input");
+      const _hiddenContentID = document.createElement("input");
+      const _hiddenAuthor = document.createElement("input");
       const _descriptionTextarea = document.createElement("textarea");
       const _submit = document.createElement("input");
 
@@ -36,11 +46,16 @@ function handleButtonOpen() {
       _form.addEventListener("submit", handleSubmit);
       // header 설정
       _header.innerText = "Create-Form";
-      // hidden 설정
-      _hidden.classList.add("create-id");
-      _hidden.setAttribute("type", "hidden");
-      _hidden.setAttribute("name", "id");
-      _hidden.setAttribute("value", String(NEW_ID));
+      // hidden Content ID설정
+      _hiddenContentID.classList.add("create-id");
+      _hiddenContentID.setAttribute("type", "hidden");
+      _hiddenContentID.setAttribute("name", "id");
+      _hiddenContentID.setAttribute("value", String(NEW_ID));
+      // hidden Author 설정
+      _hiddenAuthor.id = "create-author";
+      _hiddenAuthor.setAttribute("type", "hidden");
+      _hiddenAuthor.setAttribute("name", "author");
+      _hiddenAuthor.setAttribute("value", localStorage.getItem("nickname"));
       // titleDiv 설정
       _titleDiv.classList.add("mb-3");
       // titleLabel 설정
@@ -74,7 +89,8 @@ function handleButtonOpen() {
       _titleDiv.appendChild(_titleInput);
       _form.appendChild(_header);
       _form.appendChild(_titleDiv);
-      _form.appendChild(_hidden);
+      _form.appendChild(_hiddenContentID);
+      _form.appendChild(_hiddenAuthor);
       _descriptionDiv.appendChild(_descriptionLabel);
       _descriptionDiv.appendChild(_descriptionTextarea);
       _form.appendChild(_descriptionDiv);
@@ -107,19 +123,9 @@ function handleSubmit(event) {
   const id = document.querySelector(".create-id");
   const title = document.querySelector(".create-title");
   const description = document.querySelector(".create-description");
-  const createdContent = { id: id.value, title: title.value, description: description.value };
-  console.log(createdContent);
+  const author = document.querySelector("#create-author");
+  const createdContent = { id: id.value, author: author.value, title: title.value, description: description.value };
   postAPI("contents", createdContent, () => paint(createdContent.id));
   handleButtonClose();
   // active 코드
-}
-
-export function createContent() {
-  _createButton.addEventListener("click", () => {
-    if (state.formOpen) {
-      handleButtonClose();
-    } else {
-      handleButtonOpen();
-    }
-  });
 }
