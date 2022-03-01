@@ -12,4 +12,8 @@ export function paintAlert(type, reason, message) {
   _button.setAttribute("data-bs-dismiss", "alert");
   _button.setAttribute("aria-label", "Close");
   _div.appendChild(_button);
+
+  setTimeout(() => {
+    _div.remove();
+  }, 5000);
 }
