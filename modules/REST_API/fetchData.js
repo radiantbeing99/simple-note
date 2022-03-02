@@ -1,4 +1,4 @@
-import { paintAlert } from "../paint/paintAlert.js";
+import { paintAlert } from "../render/paintAlert.js";
 
 // 개발 서버
 // const backEndAddress = "http://krrr8.sytes.net";

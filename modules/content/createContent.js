@@ -1,8 +1,8 @@
 // FIXME: Create Submit 이후 active 안되는 문제
-import { paintContent } from "../paint/paintContent.js";
+import { paintContent } from "../render/paintContent.js";
 import { setCurrentContent } from "./currentContent.js";
 import { fetchData } from "../REST_API/fetchData.js";
-import { paintTOC } from "../paint/paintTOC.js";
+import { paintTOC } from "../render/paintTOC.js";
 
 const _createButton = document.querySelector("#create-button");
 const _contentForm = document.querySelector("#content-form-space");

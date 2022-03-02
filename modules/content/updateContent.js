@@ -1,6 +1,6 @@
-import { paintTOC } from "../paint/paintTOC.js";
+import { paintTOC } from "../render/paintTOC.js";
 import { getCurrentContent, setCurrentContent } from "./currentContent.js";
-import { paintContent } from "../paint/paintContent.js";
+import { paintContent } from "../render/paintContent.js";
 import { fetchData } from "../REST_API/fetchData.js";
 
 const _updateButton = document.querySelector("#update-button");

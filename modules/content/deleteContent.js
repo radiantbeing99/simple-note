@@ -1,6 +1,6 @@
 import { getCurrentContent, setDefaultContent } from "./currentContent.js";
-import { paintContent } from "../paint/paintContent.js";
-import { paintTOC } from "../paint/paintTOC.js";
+import { paintContent } from "../render/paintContent.js";
+import { paintTOC } from "../render/paintTOC.js";
 import { fetchData } from "../REST_API/fetchData.js";
 
 function handleClickDelete() {

@@ -15,6 +15,8 @@ const state = {
 function handleClickAnchor(event, contentID) {
   event.preventDefault();
 
+  history.pushState({}, null, event.target.href);
+
   if (!state.updateButtonVisible && !state.deleteButtonVisible) {
     _updateButton.removeAttribute("disabled");
     _deleteButton.removeAttribute("disabled");
@@ -56,6 +58,7 @@ export function paintTOC() {
       contents.forEach((content) => {
         const a = document.createElement("a");
         a.innerText = content.title;
+        a.setAttribute("href", `/contents/${content.id}`);
         a.setAttribute("id", `content-${content.id}`);
         a.classList.add("list-group-item", "list-group-item-action");
         a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
