@@ -102,7 +102,7 @@ function handleSubmit(event, signMode) {
   encrypt(password, (encryptedPW) => {
     const requestInfo = {
       method: "POST",
-      path: `members/${signMode}`,
+      path: `/members/${signMode}`,
       body: { nickname: userName, password: encryptedPW },
       dataHandler: (data) => {
         // Sign In Situation
