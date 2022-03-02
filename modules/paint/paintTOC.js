@@ -1,7 +1,7 @@
-import { getAPI } from "../REST_API/controlBackEndAPI.js";
 import { setCurrentContent } from "../content/currentContent.js";
 import { paintContent } from "./paintContent.js";
 import { closeUpdateForm } from "../content/updateContent.js";
+import { fetchData } from "../REST_API/fetchData.js";
 
 const _tableOfContents = document.querySelector("#table-of-contents");
 const _updateButton = document.querySelector("#update-button");
@@ -29,15 +29,17 @@ function handleClickAnchor(event, contentID) {
   });
   _anchor.classList.add("active");
 
-  getAPI(
-    `contents/${contentID}`,
-    (content) => {
+  const requestInfo = {
+    method: "GET",
+    path: `/contents/${contentID}`,
+    dataHandler: (content) => {
       setCurrentContent(content);
       paintContent();
       closeUpdateForm();
     },
-    "선택한 글의 데이터를 받아오는데 실패하였습니다."
-  );
+    errorMessage: "선택한 글의 데이터를 받아오는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
 }
 
 export function activeButton(element) {
@@ -46,9 +48,10 @@ export function activeButton(element) {
 
 export function paintTOC() {
   _tableOfContents.innerHTML = "";
-  getAPI(
-    "contents/toc",
-    (data) => {
+  const requestInfo = {
+    method: "GET",
+    path: "/contents/toc",
+    dataHandler: (data) => {
       const contents = data.contentsTOC;
       contents.forEach((content) => {
         const a = document.createElement("a");
@@ -59,6 +62,7 @@ export function paintTOC() {
         _tableOfContents.appendChild(a);
       });
     },
-    "글 목록을 가져오는데 실패하였습니다."
-  );
+    errorMessage: "글 목록을 가져오는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
 }

@@ -1,9 +1,9 @@
-export function paintAlert(type, reason, message) {
+export function paintAlert(type, message) {
   const _alertMessageSpace = document.querySelector("#alert-message-space");
   const _div = document.createElement("div");
   _div.classList.add("alert", `alert-${type}`, "alert-dismissible", "m-3");
   _div.setAttribute("role", "alert");
-  _div.innerText = `${message} (${reason})`;
+  _div.innerText = `${message})`;
   _alertMessageSpace.appendChild(_div);
 
   const _button = document.createElement("button");

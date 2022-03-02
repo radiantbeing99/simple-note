@@ -1,7 +1,7 @@
-import { getAPI, patchAPI } from "../REST_API/controlBackEndAPI.js";
 import { paintTOC } from "../paint/paintTOC.js";
 import { getCurrentContent, setCurrentContent } from "./currentContent.js";
 import { paintContent } from "../paint/paintContent.js";
+import { fetchData } from "../REST_API/fetchData.js";
 
 const _updateButton = document.querySelector("#update-button");
 const _contentForm = document.querySelector("#content-form-space");
@@ -84,15 +84,17 @@ function handleButtonClose() {
 
 function handleSubmit(event) {
   function paint(contentID) {
-    getAPI(
-      `contents/${contentID}`,
-      (content) => {
+    const requestInfo = {
+      method: "GET",
+      path: `/contents/${contentID}`,
+      dataHandler: (content) => {
         setCurrentContent(content);
         paintTOC();
         paintContent();
       },
-      "수정된 글의 데이터를 받아오는데 실패하였습니다."
-    );
+      errorMessage: "수정된 글의 데이터를 받아오는데 실패하였습니다.",
+    };
+    fetchData(requestInfo);
   }
   event.preventDefault();
   const id = document.querySelector(".update-id");
@@ -116,13 +118,15 @@ export function updateContent() {
     if (state.formOpen) {
       handleButtonClose();
     } else {
-      getAPI(
-        `contents/${getCurrentContent().id}`,
-        (content) => {
+      const requestInfo = {
+        method: "GET",
+        path: `/contents/${getCurrentContent().id}`,
+        dataHandler: (content) => {
           handleButtonOpen(content);
         },
-        "선택한 글의 정보를 받아오는데 실패하였습니다."
-      );
+        errorMessage: "선택한 글의 정보를 받아오는데 실패하였습니다.",
+      };
+      fetchData(requestInfo);
     }
   });
 }

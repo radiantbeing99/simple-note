@@ -1,7 +1,7 @@
 // FIXME: Create Submit 이후 active 안되는 문제
 import { paintContent } from "../paint/paintContent.js";
 import { setCurrentContent } from "./currentContent.js";
-import { getAPI, postAPI } from "../REST_API/controlBackEndAPI.js";
+import { fetchData } from "../REST_API/fetchData.js";
 import { paintTOC } from "../paint/paintTOC.js";
 
 const _createButton = document.querySelector("#create-button");
@@ -22,9 +22,10 @@ export function createContent() {
 }
 
 function handleButtonOpen() {
-  getAPI(
-    "contents/max-contents",
-    (MAX_CONTENTS_NUM) => {
+  const requestInfo = {
+    method: "GET",
+    path: "/contents/max-contents",
+    dataHandler: (MAX_CONTENTS_NUM) => {
       state.formOpen = true;
 
       const NEW_ID = MAX_CONTENTS_NUM + 1;
@@ -97,8 +98,9 @@ function handleButtonOpen() {
       _form.appendChild(_submit);
       _contentForm.appendChild(_form);
     },
-    "등록된 글의 개수를 받아오는데 실패하였습니다."
-  );
+    errorMessage: "등록된 글의 개수를 받아오는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
 }
 
 function handleButtonClose() {
@@ -109,15 +111,16 @@ function handleButtonClose() {
 
 function handleSubmit(event) {
   function paint(contentID) {
-    getAPI(
-      `contents/${contentID}`,
-      (content) => {
+    const requestInfo = {
+      method: "GET",
+      path: `/contents/${contentID}`,
+      dataHandler: (content) => {
         setCurrentContent(content);
         paintTOC();
         paintContent();
       },
-      "생성된 글의 정보를 받아오는데 실패하였습니다."
-    );
+      errorMessage: "생성된 글의 정보를 받아오는데 실패하였습니다.",
+    };
   }
   event.preventDefault();
   const id = document.querySelector(".create-id");
@@ -125,7 +128,14 @@ function handleSubmit(event) {
   const description = document.querySelector(".create-description");
   const author = document.querySelector("#create-author");
   const createdContent = { id: id.value, author: author.value, title: title.value, description: description.value };
-  postAPI("contents", createdContent, () => paint(createdContent.id));
+  const requestInfo = {
+    method: "POST",
+    path: "/contents",
+    body: createdContent,
+    dataHandler: () => paint(createdContent.id),
+    errorMessage: "생성된 글을 전송하는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
   handleButtonClose();
   // active 코드
 }
