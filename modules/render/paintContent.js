@@ -3,6 +3,7 @@ import { currentContent } from "../content/currentContent.js";
 const _contentTitle = document.querySelector("#content-title-space");
 const _contentDescription = document.querySelector("#content-description-space");
 const _contentLastModified = document.querySelector("#content-last-modified-time");
+const _contentAuthor = document.querySelector("#content-author-space");
 
 export function paintContentTitle() {
   _contentTitle.innerText = currentContent.title;
@@ -22,8 +23,13 @@ export function paintContentLastModified() {
   _contentLastModified.innerText = `Last modified: ${years}년 ${months}월 ${days}일 ${hours}:${minutes}`;
 }
 
+export function paintContentAuthor() {
+  _contentAuthor.innerText = currentContent.author;
+}
+
 export function paintContent() {
   paintContentTitle();
   paintContentDescription();
   paintContentLastModified();
+  paintContentAuthor();
 }

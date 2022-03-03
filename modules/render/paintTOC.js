@@ -12,10 +12,32 @@ const state = {
   deleteButtonVisible: false,
 };
 
+export function paintTOC() {
+  _tableOfContents.appendChild(getSpinnerElement());
+  const requestInfo = {
+    method: "GET",
+    path: "/contents/toc",
+    dataHandler: (data) => {
+      const contents = data.contentsTOC;
+      contents.forEach((content) => {
+        const a = document.createElement("a");
+        a.innerText = content.title;
+        a.setAttribute("href", `/contents/${content.id}`);
+        a.setAttribute("id", `content-${content.id}`);
+        a.classList.add("list-group-item", "list-group-item-action");
+        a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
+        _tableOfContents.appendChild(a);
+      });
+      const $spinner = document.querySelector("#table-of-contents .spinner-border");
+      $spinner.remove();
+    },
+    errorMessage: "글 목록을 가져오는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
+}
+
 function handleClickAnchor(event, contentID) {
   event.preventDefault();
-
-  history.pushState({}, null, event.target.href);
 
   if (!state.updateButtonVisible && !state.deleteButtonVisible) {
     _updateButton.removeAttribute("disabled");
@@ -48,24 +70,15 @@ export function activeButton(element) {
   element.classList.add("active");
 }
 
-export function paintTOC() {
-  _tableOfContents.innerHTML = "";
-  const requestInfo = {
-    method: "GET",
-    path: "/contents/toc",
-    dataHandler: (data) => {
-      const contents = data.contentsTOC;
-      contents.forEach((content) => {
-        const a = document.createElement("a");
-        a.innerText = content.title;
-        a.setAttribute("href", `/contents/${content.id}`);
-        a.setAttribute("id", `content-${content.id}`);
-        a.classList.add("list-group-item", "list-group-item-action");
-        a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
-        _tableOfContents.appendChild(a);
-      });
-    },
-    errorMessage: "글 목록을 가져오는데 실패하였습니다.",
-  };
-  fetchData(requestInfo);
+function getSpinnerElement() {
+  const $span = document.createElement("span");
+  $span.classList.add("visually-hidden");
+  $span.innerText = "Loading...";
+
+  const $div = document.createElement("div");
+  $div.classList.add("spinner-border");
+  $div.setAttribute("role", "status");
+  $div.appendChild($span);
+
+  return $div;
 }

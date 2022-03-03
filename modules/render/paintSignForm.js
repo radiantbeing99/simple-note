@@ -4,7 +4,7 @@
 import { fetchData } from "../REST_API/fetchData.js";
 import { encrypt } from "../security/encrypt.js";
 import { paintAlert } from "./paintAlert.js";
-import { paintUserToNav } from "./paintUserToNav.js";
+import { renderUserNameInNav } from "./renderNavigationBar.js";
 
 const _loginFormSpace = document.querySelector("#sign-form-space");
 const _contentsViewSpace = document.querySelector("#contents-view-space");
@@ -117,7 +117,7 @@ function handleSubmit(event, signMode) {
             _contentsViewSpace.classList.remove("d-none");
             const _navRightComponents = document.querySelector("#nav-right-components");
             _navRightComponents.classList.remove("d-none");
-            paintUserToNav();
+            renderUserNameInNav();
           }
           // Sign Up Situation
         } else if (signMode === "sign-up") {

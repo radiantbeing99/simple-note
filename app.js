@@ -8,7 +8,7 @@ import { updateContent } from "./modules/content/updateContent.js";
 import { deleteContent } from "./modules/content/deleteContent.js";
 import { paintSignForm } from "./modules/render/paintSignForm.js";
 import { paintQuote } from "./modules/render/paintQuote.js";
-import { paintUserToNav } from "./modules/render/paintUserToNav.js";
+import { renderNavigationBar, renderUserNameInNav } from "./modules/render/renderNavigationBar.js";
 
 const state = {
   signIn: null,
@@ -16,13 +16,10 @@ const state = {
 
 state.signIn = localStorage.getItem("nickname") ? true : false;
 
-window.addEventListener("popstate", () => {
-  history.pushState({}, null, "/");
-  location.reload();
-});
-
-paintUserToNav();
+renderNavigationBar();
+renderUserNameInNav();
 paintSignForm("sign-in");
+
 if (state.signIn) {
   const _signForm = document.querySelector("#sign-form");
   const _contentsViewSpace = document.querySelector("#contents-view-space");
@@ -37,6 +34,7 @@ _signOutButton.addEventListener("click", (event) => {
   localStorage.removeItem("nickname");
   location.reload();
 });
+
 paintQuote();
 createContent();
 updateContent();
