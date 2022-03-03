@@ -75,10 +75,14 @@ function getSpinnerElement() {
   $span.classList.add("visually-hidden");
   $span.innerText = "Loading...";
 
-  const $div = document.createElement("div");
-  $div.classList.add("spinner-border");
-  $div.setAttribute("role", "status");
-  $div.appendChild($span);
+  const $div1 = document.createElement("div");
+  $div1.classList.add("spinner-border");
+  $div1.setAttribute("role", "status");
+  $div1.appendChild($span);
 
-  return $div;
+  const $div2 = document.createElement("div");
+  $div2.classList.add("d-flex", "justify-content-center");
+  $div2.appendChild($div1);
+
+  return $div2;
 }

@@ -7,7 +7,7 @@ import { createContent } from "./modules/content/createContent.js";
 import { updateContent } from "./modules/content/updateContent.js";
 import { deleteContent } from "./modules/content/deleteContent.js";
 import { paintSignForm } from "./modules/render/paintSignForm.js";
-import { paintQuote } from "./modules/render/paintQuote.js";
+import { paintQuote, removeQuotePlaceholder, renderQuotePlaceholder } from "./modules/render/paintQuote.js";
 import { renderNavigationBar, renderUserNameInNav } from "./modules/render/renderNavigationBar.js";
 
 const state = {

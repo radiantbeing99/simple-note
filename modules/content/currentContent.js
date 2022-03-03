@@ -19,7 +19,7 @@ export function setCurrentContent(contentObject) {
   currentContent.lastModifiedTime = contentObject.lastModifiedTime;
   currentContent.title = contentObject.title;
   currentContent.description = contentObject.description;
-  currentContent.author = contentObject.member.nickName;
+  currentContent.author = contentObject.author;
 }
 
 export function getCurrentContent() {

@@ -24,7 +24,7 @@ export function paintContentLastModified() {
 }
 
 export function paintContentAuthor() {
-  _contentAuthor.innerText = currentContent.author;
+  _contentAuthor.innerText = `Author: ${currentContent.author}`;
 }
 
 export function paintContent() {

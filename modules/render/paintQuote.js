@@ -1,6 +1,7 @@
 const _quoteSpace = document.querySelector("#quote-space");
 
 export function paintQuote() {
+  renderQuotePlaceholder();
   fetch("https://type.fit/api/quotes")
     .then((response) => response.json())
     .then((quotes) => {
@@ -27,6 +28,45 @@ export function paintQuote() {
       _figure.appendChild(_blockquote);
       _figure.append(_figcaption);
       _quoteSpace.appendChild(_figure);
+
+      removeQuotePlaceholder();
     })
     .catch((reason) => console.log(reason));
+}
+
+export function renderQuotePlaceholder() {
+  const $div = document.createElement("div");
+  $div.id = "quote-placeholder";
+  $div.classList.add("m-3");
+
+  const $figure = document.createElement("figure");
+  $div.appendChild($figure);
+
+  const $blockquote = document.createElement("blockquote");
+  $blockquote.classList.add("blockquote");
+  $figure.appendChild($blockquote);
+
+  const $p = document.createElement("p");
+  $p.classList.add("placeholder-glow");
+  $blockquote.appendChild($p);
+
+  const $span1 = document.createElement("span");
+  $span1.classList.add("placeholder", "col-9");
+  $p.appendChild($span1);
+
+  const $figcaption = document.createElement("figcaption");
+  $figcaption.classList.add("placeholder-glow");
+  $figure.appendChild($figcaption);
+
+  const $span2 = document.createElement("span");
+  $span2.classList.add("placeholder", "col-4");
+  $figcaption.appendChild($span2);
+
+  const $quoteSpace = document.querySelector("#quote-space");
+  $quoteSpace.appendChild($div);
+}
+
+export function removeQuotePlaceholder() {
+  const $quotePlaceholder = document.querySelector("#quote-placeholder");
+  $quotePlaceholder.remove();
 }
