@@ -1,4 +1,4 @@
-// FIXME: Create Submit 이후 active 안되는 문제
+// FIXME: Create Submit 이후 TOC와 Contents 자동 새로고침 안됨
 import { paintContent } from "../render/paintContent.js";
 import { setCurrentContent } from "./currentContent.js";
 import { fetchData } from "../REST_API/fetchData.js";

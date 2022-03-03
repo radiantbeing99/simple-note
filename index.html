@@ -17,27 +17,42 @@
   <body>
     <!-- Navigation Bar -->
     <div id="navigation-bar"></div>
+    <!-- Alert Message -->
+    <div id="alert-message-space"></div>
+    <!-- Login -->
     <div class="container">
-      <!-- Alert Message -->
-      <div id="alert-message-space"></div>
-      <!-- Login -->
       <div id="sign-form-space"></div>
-      <div id="quote-space"></div>
-      <!-- Contents View -->
-      <div class="d-none" id="contents-view-space">
-        <div class="list-group mb-3" id="table-of-contents"></div>
-        <div class="btn-group mb-3" role="group" aria-label="Basic example">
-          <button type="button" class="btn btn-primary" id="create-button">Create</button>
-          <button type="button" class="btn btn-primary" id="update-button" disabled>Update</button>
+    </div>
+    <!-- Grid -->
+    <div class="container-fluid ps-0 d-none" id="contents-view-space">
+      <div class="row">
+        <div class="col-3 border-end">
+          <!-- Table Of Contents -->
+          <h3 class="m-3">Contents</h3>
+          <div class="list-group ms-2" id="table-of-contents"></div>
         </div>
-        <button type="button" class="btn btn-danger mb-3" id="delete-button" disabled>Delete</button>
-        <div id="content-form-space"></div>
-        <h2 id="content-title-space"></h2>
-        <div id="content-description-space"></div>
-        <div id="content-last-modified-time"></div>
-        <div id="content-author-space"></div>
+        <div class="col">
+          <div class="container">
+            <div id="quote-space"></div>
+            <!-- CRUD Button Group -->
+            <div class="btn-group mb-3" role="group" aria-label="Basic example">
+              <button type="button" class="btn btn-primary" id="create-button">Create</button>
+              <button type="button" class="btn btn-primary" id="update-button" disabled>Update</button>
+            </div>
+            <button type="button" class="btn btn-danger mb-3" id="delete-button" disabled>Delete</button>
+            <!-- Contents View -->
+            <div class="border bg-light p-4" id="content-space">
+              <h2 id="content-title-space"></h2>
+              <div class="border bg-body p-2 mt-4 mb-4" id="content-description-space"></div>
+              <div id="content-last-modified-time"></div>
+              <div id="content-author-space"></div>
+            </div>
+            <div class="border mt-2 p-4 bg-light" id="content-form-space"></div>
+          </div>
+        </div>
       </div>
     </div>
+
     <script
       src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
       integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
