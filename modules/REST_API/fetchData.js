@@ -1,9 +1,9 @@
 import { paintAlert } from "../render/paintAlert.js";
 
 // 개발 서버
-const backEndServer = "http://krrr8.sytes.net";
+// const backEndServer = "http://krrr8.sytes.net";
 // 배포 서버
-// const backEndServer = "https://noteforu.herokuapp.com";
+const backEndServer = "https://noteforu.herokuapp.com";
 
 /*
 const requestInfo = 
