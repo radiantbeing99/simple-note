@@ -13,11 +13,14 @@ const state = {
 };
 
 export function paintTOC() {
+  _tableOfContents.innerHTML = "";
   _tableOfContents.appendChild(getSpinnerElement());
   const requestInfo = {
     method: "GET",
     path: "/contents/toc",
     dataHandler: (data) => {
+      const $spinner = document.querySelector("#table-of-contents .spinner-border");
+      $spinner.remove();
       const contents = data.contentsTOC;
       contents.forEach((content) => {
         const a = document.createElement("a");
@@ -28,8 +31,6 @@ export function paintTOC() {
         a.addEventListener("click", (event) => handleClickAnchor(event, content.id));
         _tableOfContents.appendChild(a);
       });
-      const $spinner = document.querySelector("#table-of-contents .spinner-border");
-      $spinner.remove();
     },
     errorMessage: "글 목록을 가져오는데 실패하였습니다.",
   };
@@ -52,6 +53,9 @@ function handleClickAnchor(event, contentID) {
     item.classList.remove("active");
   });
   _anchor.classList.add("active");
+
+  const _contentForm = document.querySelector("#content-update-form-space");
+  _contentForm.classList.remove("border", "mt-2", "p-4", "bg-light");
 
   const requestInfo = {
     method: "GET",

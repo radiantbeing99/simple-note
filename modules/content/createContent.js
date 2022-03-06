@@ -5,7 +5,7 @@ import { fetchData } from "../REST_API/fetchData.js";
 import { paintTOC } from "../render/paintTOC.js";
 
 const _createButton = document.querySelector("#create-button");
-const _contentForm = document.querySelector("#content-form-space");
+const _contentForm = document.querySelector("#content-create-form-space");
 
 const state = {
   formOpen: false,
@@ -22,6 +22,7 @@ export function createContent() {
 }
 
 function handleButtonOpen() {
+  _contentForm.classList.add("border", "mt-2", "p-4", "bg-light");
   const requestInfo = {
     method: "GET",
     path: "/contents/max-contents",
@@ -104,6 +105,7 @@ function handleButtonOpen() {
 }
 
 function handleButtonClose() {
+  _contentForm.classList.remove("border", "mt-2", "p-4", "bg-light");
   state.formOpen = false;
   const form = document.querySelector(".create-form");
   form.remove();
@@ -121,6 +123,7 @@ function handleSubmit(event) {
       },
       errorMessage: "생성된 글의 정보를 받아오는데 실패하였습니다.",
     };
+    fetchData(requestInfo);
   }
   event.preventDefault();
   const id = document.querySelector(".create-id");

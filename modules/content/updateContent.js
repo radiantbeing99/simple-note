@@ -4,13 +4,14 @@ import { paintContent } from "../render/paintContent.js";
 import { fetchData } from "../REST_API/fetchData.js";
 
 const _updateButton = document.querySelector("#update-button");
-const _contentForm = document.querySelector("#content-form-space");
+const _contentForm = document.querySelector("#content-update-form-space");
 
 const state = {
   formOpen: false,
 };
 
 function handleButtonOpen(content) {
+  _contentForm.classList.add("border", "mt-2", "p-4", "bg-light");
   state.formOpen = true;
 
   const _form = document.createElement("form");
@@ -77,6 +78,7 @@ function handleButtonOpen(content) {
 }
 
 function handleButtonClose() {
+  _contentForm.classList.remove("border", "mt-2", "p-4", "bg-light");
   state.formOpen = false;
   const form = document.querySelector(".update-form");
   form.remove();
@@ -101,7 +103,14 @@ function handleSubmit(event) {
   const title = document.querySelector(".update-title");
   const description = document.querySelector(".update-description");
   const updatedContent = { id: id.value, title: title.value, description: description.value };
-  patchAPI(`contents/${updatedContent.id}`, updatedContent, () => paint(updatedContent.id));
+  const requestInfo = {
+    method: "PATCH",
+    path: `/contents/${updatedContent.id}`,
+    body: updatedContent,
+    dataHandler: () => paint(updatedContent.id),
+    errorMessage: "수정된 글을 보내는 중 오류가 발생했습니다.",
+  };
+  fetchData(requestInfo);
   handleButtonClose();
 }
 
