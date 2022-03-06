@@ -1,9 +1,10 @@
 // FIXME: 로그인 확인 기능 미흡. 로그인이 확인되면 localStrage에 바꾸는 것으로 변경.
 // 로그인 확인하는 부분은 따로 인증 폴더를 만들어 떼어내기
 
-import { postAPI } from "../REST_API/controlBackEndAPI.js";
+import { fetchData } from "../REST_API/fetchData.js";
 import { encrypt } from "../security/encrypt.js";
 import { paintAlert } from "./paintAlert.js";
+import { renderUserNameInNav } from "./renderNavigationBar.js";
 
 const _loginFormSpace = document.querySelector("#sign-form-space");
 const _contentsViewSpace = document.querySelector("#contents-view-space");
@@ -99,10 +100,11 @@ function handleSubmit(event, signMode) {
   const userName = _formInputID.value;
   const password = _formInputPW.value;
   encrypt(password, (encryptedPW) => {
-    postAPI(
-      `members/${signMode}`,
-      { nickname: userName, password: encryptedPW },
-      (data) => {
+    const requestInfo = {
+      method: "POST",
+      path: `/members/${signMode}`,
+      body: { nickname: userName, password: encryptedPW },
+      dataHandler: (data) => {
         // Sign In Situation
         if (signMode === "sign-in") {
           if (!data.idMatch) {
@@ -112,7 +114,10 @@ function handleSubmit(event, signMode) {
           } else {
             removeSignForm();
             localStorage.setItem("nickname", userName);
-            _contentsViewSpace.classList.remove("invisible");
+            _contentsViewSpace.classList.remove("d-none");
+            const _navRightComponents = document.querySelector("#nav-right-components");
+            _navRightComponents.classList.remove("d-none");
+            renderUserNameInNav();
           }
           // Sign Up Situation
         } else if (signMode === "sign-up") {
@@ -125,8 +130,9 @@ function handleSubmit(event, signMode) {
           }
         }
       },
-      "회원 정보를 제출하는 도중에 오류가 발생했습니다."
-    );
+      errorMessage: "회원 정보를 제출하는 도중에 오류가 발생했습니다.",
+    };
+    fetchData(requestInfo);
   });
 }
 

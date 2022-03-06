@@ -1,16 +1,17 @@
-import { getAPI, patchAPI } from "../REST_API/controlBackEndAPI.js";
-import { paintTOC } from "../paint/paintTOC.js";
+import { paintTOC } from "../render/paintTOC.js";
 import { getCurrentContent, setCurrentContent } from "./currentContent.js";
-import { paintContent } from "../paint/paintContent.js";
+import { paintContent } from "../render/paintContent.js";
+import { fetchData } from "../REST_API/fetchData.js";
 
 const _updateButton = document.querySelector("#update-button");
-const _contentForm = document.querySelector("#content-form-space");
+const _contentForm = document.querySelector("#content-update-form-space");
 
 const state = {
   formOpen: false,
 };
 
 function handleButtonOpen(content) {
+  _contentForm.classList.add("border", "mt-2", "p-4", "bg-light");
   state.formOpen = true;
 
   const _form = document.createElement("form");
@@ -77,6 +78,7 @@ function handleButtonOpen(content) {
 }
 
 function handleButtonClose() {
+  _contentForm.classList.remove("border", "mt-2", "p-4", "bg-light");
   state.formOpen = false;
   const form = document.querySelector(".update-form");
   form.remove();
@@ -84,22 +86,31 @@ function handleButtonClose() {
 
 function handleSubmit(event) {
   function paint(contentID) {
-    getAPI(
-      `contents/${contentID}`,
-      (content) => {
+    const requestInfo = {
+      method: "GET",
+      path: `/contents/${contentID}`,
+      dataHandler: (content) => {
         setCurrentContent(content);
         paintTOC();
         paintContent();
       },
-      "수정된 글의 데이터를 받아오는데 실패하였습니다."
-    );
+      errorMessage: "수정된 글의 데이터를 받아오는데 실패하였습니다.",
+    };
+    fetchData(requestInfo);
   }
   event.preventDefault();
   const id = document.querySelector(".update-id");
   const title = document.querySelector(".update-title");
   const description = document.querySelector(".update-description");
   const updatedContent = { id: id.value, title: title.value, description: description.value };
-  patchAPI(`contents/${updatedContent.id}`, updatedContent, () => paint(updatedContent.id));
+  const requestInfo = {
+    method: "PATCH",
+    path: `/contents/${updatedContent.id}`,
+    body: updatedContent,
+    dataHandler: () => paint(updatedContent.id),
+    errorMessage: "수정된 글을 보내는 중 오류가 발생했습니다.",
+  };
+  fetchData(requestInfo);
   handleButtonClose();
 }
 
@@ -116,13 +127,15 @@ export function updateContent() {
     if (state.formOpen) {
       handleButtonClose();
     } else {
-      getAPI(
-        `contents/${getCurrentContent().id}`,
-        (content) => {
+      const requestInfo = {
+        method: "GET",
+        path: `/contents/${getCurrentContent().id}`,
+        dataHandler: (content) => {
           handleButtonOpen(content);
         },
-        "선택한 글의 정보를 받아오는데 실패하였습니다."
-      );
+        errorMessage: "선택한 글의 정보를 받아오는데 실패하였습니다.",
+      };
+      fetchData(requestInfo);
     }
   });
 }

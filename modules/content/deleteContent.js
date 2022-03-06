@@ -1,19 +1,21 @@
 import { getCurrentContent, setDefaultContent } from "./currentContent.js";
-import { paintContent } from "../paint/paintContent.js";
-import { deleteAPI } from "../REST_API/controlBackEndAPI.js";
-import { paintTOC } from "../paint/paintTOC.js";
+import { paintContent } from "../render/paintContent.js";
+import { paintTOC } from "../render/paintTOC.js";
+import { fetchData } from "../REST_API/fetchData.js";
 
 function handleClickDelete() {
   const currentContent = getCurrentContent();
-  deleteAPI(
-    `contents/${currentContent.id}`,
-    (data) => {
+  const requestInfo = {
+    method: "DELETE",
+    path: `/contents/${currentContent.id}`,
+    dataHandler: (data) => {
       paintTOC();
       setDefaultContent();
       paintContent();
     },
-    "선택한 글을 삭제하는데 실패하였습니다."
-  );
+    errorMessage: "선택한 글을 삭제하는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
 }
 
 export function deleteContent() {

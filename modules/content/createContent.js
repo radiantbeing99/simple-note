@@ -1,24 +1,35 @@
-// FIXME: Create Submit 이후 active 안되는 문제
-import { paintContent } from "../paint/paintContent.js";
+// FIXME: Create Submit 이후 TOC와 Contents 자동 새로고침 안됨
+import { paintContent } from "../render/paintContent.js";
 import { setCurrentContent } from "./currentContent.js";
-import { getAPI, postAPI } from "../REST_API/controlBackEndAPI.js";
-import { paintTOC } from "../paint/paintTOC.js";
+import { fetchData } from "../REST_API/fetchData.js";
+import { paintTOC } from "../render/paintTOC.js";
 
 const _createButton = document.querySelector("#create-button");
-const _contentForm = document.querySelector("#content-form-space");
+const _contentForm = document.querySelector("#content-create-form-space");
 
 const state = {
   formOpen: false,
 };
 
+export function createContent() {
+  _createButton.addEventListener("click", () => {
+    if (state.formOpen) {
+      handleButtonClose();
+    } else {
+      handleButtonOpen();
+    }
+  });
+}
+
 function handleButtonOpen() {
-  getAPI(
-    "contents/max_contents",
-    (MAX_CONTENTS_NUM) => {
+  _contentForm.classList.add("border", "mt-2", "p-4", "bg-light");
+  const requestInfo = {
+    method: "GET",
+    path: "/contents/max-contents",
+    dataHandler: (MAX_CONTENTS_NUM) => {
       state.formOpen = true;
 
       const NEW_ID = MAX_CONTENTS_NUM + 1;
-      console.log(NEW_ID);
 
       const _form = document.createElement("form");
       const _titleDiv = document.createElement("div");
@@ -27,7 +38,8 @@ function handleButtonOpen() {
       const _descriptionDiv = document.createElement("div");
       const _descriptionLabel = document.createElement("label");
       const _header = document.createElement("h3");
-      const _hidden = document.createElement("input");
+      const _hiddenContentID = document.createElement("input");
+      const _hiddenAuthor = document.createElement("input");
       const _descriptionTextarea = document.createElement("textarea");
       const _submit = document.createElement("input");
 
@@ -36,11 +48,16 @@ function handleButtonOpen() {
       _form.addEventListener("submit", handleSubmit);
       // header 설정
       _header.innerText = "Create-Form";
-      // hidden 설정
-      _hidden.classList.add("create-id");
-      _hidden.setAttribute("type", "hidden");
-      _hidden.setAttribute("name", "id");
-      _hidden.setAttribute("value", String(NEW_ID));
+      // hidden Content ID설정
+      _hiddenContentID.classList.add("create-id");
+      _hiddenContentID.setAttribute("type", "hidden");
+      _hiddenContentID.setAttribute("name", "id");
+      _hiddenContentID.setAttribute("value", String(NEW_ID));
+      // hidden Author 설정
+      _hiddenAuthor.id = "create-author";
+      _hiddenAuthor.setAttribute("type", "hidden");
+      _hiddenAuthor.setAttribute("name", "author");
+      _hiddenAuthor.setAttribute("value", localStorage.getItem("nickname"));
       // titleDiv 설정
       _titleDiv.classList.add("mb-3");
       // titleLabel 설정
@@ -74,18 +91,21 @@ function handleButtonOpen() {
       _titleDiv.appendChild(_titleInput);
       _form.appendChild(_header);
       _form.appendChild(_titleDiv);
-      _form.appendChild(_hidden);
+      _form.appendChild(_hiddenContentID);
+      _form.appendChild(_hiddenAuthor);
       _descriptionDiv.appendChild(_descriptionLabel);
       _descriptionDiv.appendChild(_descriptionTextarea);
       _form.appendChild(_descriptionDiv);
       _form.appendChild(_submit);
       _contentForm.appendChild(_form);
     },
-    "등록된 글의 개수를 받아오는데 실패하였습니다."
-  );
+    errorMessage: "등록된 글의 개수를 받아오는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
 }
 
 function handleButtonClose() {
+  _contentForm.classList.remove("border", "mt-2", "p-4", "bg-light");
   state.formOpen = false;
   const form = document.querySelector(".create-form");
   form.remove();
@@ -93,33 +113,32 @@ function handleButtonClose() {
 
 function handleSubmit(event) {
   function paint(contentID) {
-    getAPI(
-      `contents/${contentID}`,
-      (content) => {
+    const requestInfo = {
+      method: "GET",
+      path: `/contents/${contentID}`,
+      dataHandler: (content) => {
         setCurrentContent(content);
         paintTOC();
         paintContent();
       },
-      "생성된 글의 정보를 받아오는데 실패하였습니다."
-    );
+      errorMessage: "생성된 글의 정보를 받아오는데 실패하였습니다.",
+    };
+    fetchData(requestInfo);
   }
   event.preventDefault();
   const id = document.querySelector(".create-id");
   const title = document.querySelector(".create-title");
   const description = document.querySelector(".create-description");
-  const createdContent = { id: id.value, title: title.value, description: description.value };
-  console.log(createdContent);
-  postAPI("contents", createdContent, () => paint(createdContent.id));
+  const author = document.querySelector("#create-author");
+  const createdContent = { id: id.value, author: author.value, title: title.value, description: description.value };
+  const requestInfo = {
+    method: "POST",
+    path: "/contents",
+    body: createdContent,
+    dataHandler: () => paint(createdContent.id),
+    errorMessage: "생성된 글을 전송하는데 실패하였습니다.",
+  };
+  fetchData(requestInfo);
   handleButtonClose();
   // active 코드
-}
-
-export function createContent() {
-  _createButton.addEventListener("click", () => {
-    if (state.formOpen) {
-      handleButtonClose();
-    } else {
-      handleButtonOpen();
-    }
-  });
 }
