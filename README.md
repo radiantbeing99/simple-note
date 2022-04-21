@@ -1,1 +1,1 @@
-note.radia.me
+http://note.radia.me
