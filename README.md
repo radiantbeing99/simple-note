@@ -2,4 +2,4 @@
 
 Repository for learning REST API
 
-http://note.radia.me
+https://note.radia.me
